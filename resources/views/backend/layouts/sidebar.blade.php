@@ -67,7 +67,6 @@
             </a>
           </li>
 
-
 @if (Auth::user()->role == 1 )
 
           <li class="nav-item">
@@ -110,8 +109,6 @@
           </li>
         
 @endif
-
-
 
 @if (Auth::user()->role == 3 )
 

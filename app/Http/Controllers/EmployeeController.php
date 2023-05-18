@@ -101,6 +101,8 @@ public function EmployeeInsert(Request $request, $usersID)
     $employee->acc_number = $request->acc_number;
     $employee->crime_employee = $request->crime_employee;
     $employee->medical_employee = $request->medical_employee;
+    $employee->contact_no = $request->contact_no;
+    $employee->hp_no = $request->hp_no;
     $employee->emergency_employee = $request->emergency_employee;
     $employee->emergency_name = $request->emergency_name;
     $employee->address = $request->address;
@@ -109,6 +111,15 @@ public function EmployeeInsert(Request $request, $usersID)
     $employee->state = $request->state;
     $employee->country = $request->country;
     $employee->remarks = $request->remarks;
+
+    if ($request->hasFile('insert_img')) {
+        $file = $request->file('insert_img');
+        $path = $file->store('public/images');
+        $imageName = $file->hashName();
+
+        // Save the image path to the database for the relevant model
+        $employee->insert_img = $path;
+    }
 
     if ($employee->save()) {
         return redirect()->route('backend.employee.list_employee', ['usersID' => $usersID])
@@ -121,6 +132,7 @@ public function EmployeeInsert(Request $request, $usersID)
         return redirect()->route('backend.employee.show_details')->with($notification);
     }
 }
+
 
 
 public function EmployeeShow(Request $request, $usersID)

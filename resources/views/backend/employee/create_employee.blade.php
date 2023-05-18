@@ -154,7 +154,7 @@ ss
             </div>
           
           <div class="form-group">
-            <label for="date">Date of Work</label>
+            <label for="date">Date of Date of Commencement</label>
             <input type="date" name="date"  class="form-control @error('slug') is-invalid @enderror"
              id="date" placeholder="Date">
             
@@ -166,7 +166,7 @@ ss
             </div>
           
           <div class="form-group">
-            <label for="bank_name">BankAccount</label>
+            <label for="bank_name">Bank Account Name</label>
             <input type="text" name="bank_name"  class="form-control @error('slug') is-invalid @enderror"
              id="bank_name" placeholder="Bank Account Name">
             
@@ -178,9 +178,9 @@ ss
             </div>  
 
           <div class="form-group">
-            <label for="acc_number">AccountNo</label>
+            <label for="acc_number">Bank Account No.</label>
             <input type="text" name="acc_number"  class="form-control @error('slug') is-invalid @enderror"
-             id="acc_number" placeholder="Bank Account Number">
+             id="acc_number" placeholder="Bank Account No.">
             
             @error('slug')
             <span class="invalid-feedback" role="alert">
@@ -237,10 +237,34 @@ ss
             @enderror
             </div>
 
-          <div class="form-group">
-            <label for="emergency_employee">Emergency Number</label>
-            <input type="text" name="emergency_employee"  class="form-control @error('slug') is-invalid @enderror"
-             id="emergency_employee" placeholder="Employee Emergency Contact Number">
+            <div class="form-group">
+            <label for="contact_no">Contact No.</label>
+            <input type="text" name="contact_no"  class="form-control @error('slug') is-invalid @enderror"
+             id="contact_no" placeholder="Contact No.">
+            
+            @error('slug')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+
+            <div class="form-group">
+            <label for="hp_no">Handphone No.</label>
+            <input type="text" name="hp_no"  class="form-control @error('slug') is-invalid @enderror"
+             id="hp_no" placeholder="Hp No.">
+            
+            @error('slug')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+
+            <div class="form-group">
+            <label for="emergency_name">Emergency Name</label>
+            <input type="text" name="emergency_name"  class="form-control @error('slug') is-invalid @enderror"
+             id="emergency_name" placeholder="Emergency Contact Name">
             
             @error('slug')
             <span class="invalid-feedback" role="alert">
@@ -250,9 +274,9 @@ ss
             </div>
 
           <div class="form-group">
-            <label for="emergency_name">Emergency Name</label>
-            <input type="text" name="emergency_name"  class="form-control @error('slug') is-invalid @enderror"
-             id="emergency_name" placeholder="Employee Emergency Contact Name">
+            <label for="emergency_employee">Emergency Number</label>
+            <input type="text" name="emergency_employee"  class="form-control @error('slug') is-invalid @enderror"
+             id="emergency_employee" placeholder="Emergency Contact Number">
             
             @error('slug')
             <span class="invalid-feedback" role="alert">
@@ -334,6 +358,20 @@ ss
             @enderror
             </div> 
 
+            <div class="form-group">
+    <label for="insert_img">Image</label>
+    <input type="file" name="insert_img" class="form-control-file @error('insert_img') is-invalid @enderror" id="insert_img" onchange="readURL(this);">
+    <img id="preview-image" src="#" alt="Preview Image" style="max-width: 80px; max-height: 80px;">
+    @error('insert_img')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
+
+</div>
+
+
+
                 </div>
                 <!-- /.card-body -->
 
@@ -357,17 +395,15 @@ ss
 
                         <script type="text/javascript">
     function readURL(input) {
-      if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-              $('#image')
-                  .attr('src', e.target.result)
-                  .width(80)
-                  .height(80);
-          };
-          reader.readAsDataURL(input.files[0]);
-      }
-   }
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#preview-image')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 
 @endsection

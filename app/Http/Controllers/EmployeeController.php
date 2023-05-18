@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Employee;
@@ -115,9 +116,6 @@ public function EmployeeInsert(Request $request, $usersID)
     if ($request->hasFile('insert_img')) {
         $file = $request->file('insert_img');
         $path = $file->store('public/images');
-        $imageName = $file->hashName();
-
-        // Save the image path to the database for the relevant model
         $employee->insert_img = $path;
     }
 
@@ -129,10 +127,9 @@ public function EmployeeInsert(Request $request, $usersID)
             'message' => 'Error creating employee',
             'alert-type' => 'error'
         ];
-        return redirect()->route('backend.employee.show_details')->with($notification);
+        return redirect()->route('backend.employee.show_details', ['usersID' => $usersID])->with($notification);
     }
 }
-
 
 
 public function EmployeeShow(Request $request, $usersID)

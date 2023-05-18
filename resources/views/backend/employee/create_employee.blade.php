@@ -15,7 +15,7 @@ ss
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{ URL::to('/insert_employee/'.$employee->id) }}" method="post" enctype="multipart/form-data">
+              <form role="form" action="{{ URL::to('/insert_employee/'.$employee->id) }}" method="post" enctype="multipart/form-data"s>
               	@csrf 
                 <div class="card-body">
                   
@@ -358,17 +358,19 @@ ss
             @enderror
             </div> 
 
-            <div class="form-group">
-    <label for="insert_img">Image</label>
-    <input type="file" name="insert_img" class="form-control-file @error('insert_img') is-invalid @enderror" id="insert_img" onchange="readURL(this);">
-    <img id="preview-image" src="#" alt="Preview Image" style="max-width: 80px; max-height: 80px;">
-    @error('insert_img')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
+            <div class="card-body">
+                <form role="form" action="{{ URL::to('/update_employee/'.$employee->id) }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group row">
+                        <div class="col-md-12 text-center">
+                            @if($employee->insert_img)
+                                <img src="{{ Storage::url($employee->insert_img) }}" width="20%" height="auto">
+                            @endif
+                            <input type="file" name="insert_img" id="insert_img">
+                        </div>
+                    </div>
 
-</div>
+
 
 
 

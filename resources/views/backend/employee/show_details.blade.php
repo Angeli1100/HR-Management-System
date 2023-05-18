@@ -12,10 +12,10 @@
                 <form role="form" action="{{ URL::to('/update_employee/'.$employee->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
-    <div class="col-md-12 text-center">
-        <img src="{{ asset($employee->insert_img) }}" width="10%" height="auto">
-    </div>
-</div>
+                        <div class="col-md-12 text-center">
+                            <img src="{{ asset($employee->insert_img) }}" width="20%" height="auto">
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <div class="col-md-6">
@@ -59,13 +59,12 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
-                        <label for="marital_employee">Marital</label>
-                        <input type="text" name="marital_employee" class="form-control" id="marital_employee" readonly value="{{ $employee->marital_employee }}">
+                            <label for="marital_employee">Marital</label>
+                            <input type="text" name="marital_employee" class="form-control" id="marital_employee" readonly value="{{ $employee->marital_employee }}">
                         </div>
                         <div class="col-md-6">
-                        <label for="children_employee">No. of Children</label>
-                        <input type="text" name="children_employee" class="form-control" id="children_employee" readonly value="{{ $employee->children_employee }}">
-
+                            <label for="children_employee">No. of Children</label>
+                            <input type="text" name="children_employee" class="form-control" id="children_employee" readonly value="{{ $employee->children_employee }}">
                         </div>
                     </div>
                 </form>
@@ -185,6 +184,7 @@
                     <div class="col-md-12">
                         <label for="crime_employee">Past Crime Record</label>
                         <input type="text" name="crime_employee" class="form-control" id="crime_employee" readonly value="{{ $employee->crime_employee }}">
-                    </div>
+                        </div>
+    </div>
 </div>
 @endsection

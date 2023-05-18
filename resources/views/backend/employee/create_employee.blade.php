@@ -3,7 +3,7 @@
 
 <div class="card-body">
     <div class="row">
-
+ss
       <div class="col-md-2">
 
       </div>
@@ -15,16 +15,28 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{ URL::to('/insert_employee/'.$user->id) }}" method="post" enctype="multipart/form-data">
+              <form role="form" action="{{ URL::to('/insert_employee/'.$employee->id) }}" method="post" enctype="multipart/form-data">
               	@csrf 
                 <div class="card-body">
                   
                   
 
 <div class="form-group">
-  <label for="usersID">Employee ID</label>
+  <label for="id">Employee ID</label>
+  <input type="text" name="id"  class="form-control @error('slug') is-invalid @enderror"
+   id="id"   readonly value="{{ $employee->id }}">
+  
+  @error('slug')
+  <span class="invalid-feedback" role="alert">
+  <strong>{{ $message }}</strong>
+  </span>
+  @enderror
+  </div>
+
+  <div class="form-group">
+  <label for="id">Employee ID</label>
   <input type="text" name="usersID"  class="form-control @error('slug') is-invalid @enderror"
-   id="usersID"   readonly value="{{ $user->id }}">
+   id="usersID"   readonly value="{{ $employee->usersID }}">
   
   @error('slug')
   <span class="invalid-feedback" role="alert">
@@ -35,7 +47,7 @@
 
 <div class="form-group">
     <label for="employeeName">Employee Name</label>
-    <input type="text" name="employeeName" class="form-control" id="employeeName" readonly value="{{ $user->name }}">
+    <input type="text" name="employeeName" class="form-control" id="employeeName" readonly value="{{ $employee->employeeName }}">
    
     @error('slug')
     <span class="invalid-feedback" role="alert">
@@ -202,6 +214,30 @@
             </div>
 
           <div class="form-group">
+            <label for="Vaccination">Vaccination</label>
+            <input type="text" name="Vaccination"  class="form-control @error('slug') is-invalid @enderror"
+             id="Vaccination" placeholder="Vaccination">
+            
+            @error('slug')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div> 
+
+          <div class="form-group">
+            <label for="oku">OKU Status</label>
+            <input type="text" name="oku"  class="form-control @error('slug') is-invalid @enderror"
+             id="oku" placeholder="OKU Status">
+            
+            @error('slug')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+
+          <div class="form-group">
             <label for="emergency_employee">Emergency Number</label>
             <input type="text" name="emergency_employee"  class="form-control @error('slug') is-invalid @enderror"
              id="emergency_employee" placeholder="Employee Emergency Contact Number">
@@ -284,6 +320,7 @@
             </span>
             @enderror
             </div> 
+            
 
           <div class="form-group">
             <label for="remarks">Remarks</label>

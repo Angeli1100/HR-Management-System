@@ -75,7 +75,7 @@
               <a href="{{ route('register_employee') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Register New mployee
+                Register New Employee
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
@@ -99,15 +99,45 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{URL::to('/user_list')}}" class="nav-link">
+            <a href="{{URL::to('/health_status')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Health Record
-                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a href="{{URL::to('/health_status')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Payroll
               </p>
             </a>
           </li>
-        
+          <li class="nav-item">
+            <a href="{{URL::to('/health_status')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Leave
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{URL::to('/health_status')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Attire
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{URL::to('/health_status')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Daily Attendance
+              </p>
+            </a>
+          </li>
 @endif
 
 @if (Auth::user()->role == 3 )
@@ -123,6 +153,18 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+    
+    {{-- <a href="{{URL::to('/list_task/'.$task->usersID)}}" class="nav-link"> --}}
+    <a href="{{ route('backend.task.list_task', ['usersID' => Auth::user()->id]) }}" class="nav-link">
+      <i class="nav-icon fas fa-th"></i>
+      <p>
+        Information
+        <!-- <span class="right badge badge-danger">New</span> -->
+      </p>
+    </a>
+  </li>
           
         
 @endif

@@ -15,16 +15,16 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{ URL::to('/update_employee/'.$employee->usersID) }}" method="post" enctype="multipart/form-data">
+              <form role="form" action="{{ URL::to('/update_employee/'.$employee->id) }}" method="post" enctype="multipart/form-data">
               	@csrf 
                 <div class="card-body">
                   
                   
 
 <div class="form-group">
-  <label for="usersID">Employee ID</label>
-  <input type="text" name="usersID"  class="form-control @error('slug') is-invalid @enderror"
-   id="usersID"   readonly value="{{ $employee->id }}">
+  <label for="id">Employee ID</label>
+  <input type="text" name="id"  class="form-control @error('slug') is-invalid @enderror"
+   id="id"   readonly value="{{ $employee->id }}">
   
   @error('slug')
   <span class="invalid-feedback" role="alert">
@@ -103,7 +103,6 @@
           </span>
           @enderror
           </div>
-
         
       <div class="form-group">
         <label for="marital_employee">Marital</label>
@@ -193,6 +192,30 @@
             <label for="medical_employee">Medical</label>
             <input type="text" name="medical_employee"  class="form-control @error('slug') is-invalid @enderror"
              id="medical_employee" placeholder="Medical Status" readonly value="{{  $employee->medical_employee}}">
+            
+            @error('slug')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+
+          <div class="form-group">
+            <label for="Vaccination">Vaccination</label>
+            <input type="text" name="Vaccination"  class="form-control @error('slug') is-invalid @enderror"
+             id="Vaccination" placeholder="Vaccination" readonly value="{{  $employee->Vaccination}}">
+            
+            @error('slug')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+
+          <div class="form-group">
+            <label for="oku">OKU Status</label>
+            <input type="text" name="oku"  class="form-control @error('slug') is-invalid @enderror"
+             id="oku" placeholder="OKU Status" readonly value="{{  $employee->oku}}">
             
             @error('slug')
             <span class="invalid-feedback" role="alert">

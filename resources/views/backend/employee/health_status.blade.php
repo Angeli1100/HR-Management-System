@@ -5,7 +5,7 @@
 <div class="col-md-12">
 <div class="card card-primary">
 <div class="card-header info">
-<h3 class="card-title">Employee List</h3>
+<h3 class="card-title">Health Status</h3>
 </div>
             <!-- /.card-header -->
  <div class="card-body">
@@ -14,22 +14,24 @@
 <tr>
 <th>Employee ID</th>
 <th>Name</th> 
-<th>Email</th>              
+<th>Vaccination</th>              
+<th>Medical Status</th>
+<th>OKU</th>
 <th>Action</th>                  
 </tr>
 </thead>
 <tbody>
-@foreach($list as $row)
+@foreach($employees as $row)
 <tr>
 <td>{{ $row->id }}</td>
 <td>{{ $row->employeeName }}</td>
-<td>{{ $row->email }}</td>
-
+<td>{{ $row->Vaccination }}</td>
+<td>{{ $row->medical_employee }}</td>
+<td>{{ $row->oku }}</td>
 <td>
-{{-- <a href="{{ URL::to('/edit_employee/'.$row->id) }}" class="btn btn-sm btn-info">Edit</a> --}}
-<a href="{{ URL::to('/add_employee/'.$row->id) }}" class="btn btn-sm btn-primary" id="addDetails" class="middle-align">Add Details</a>
+<!-- <a href="{{ URL::to('/show_details/'.$row->id) }}" class="btn btn-sm btn-info" id="showDetails" class="middle-align">View Details</a> -->
 <a href="{{ URL::to('/show_details/'.$row->id) }}" class="btn btn-sm btn-info" id="showDetails" class="middle-align">View Details</a>
-<a href="{{ URL::to('delete_employee/'.$row->id) }}" class="btn btn-sm btn-danger" id="delete" class="middle-align">Delete</a>
+<a href="{{ URL::to('delete_Health/'.$row->id) }}" class="btn btn-sm btn-danger" id="delete" class="middle-align">Delete</a>
 </td>
 </tr>
 @endforeach

@@ -84,7 +84,7 @@
             <a href="{{URL::to('/list_employee')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-              Employee List
+              Employee Profile
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
@@ -107,7 +107,7 @@
             </a>
           </li> 
           <li class="nav-item">
-            <a href="{{URL::to('/health_status')}}" class="nav-link">
+            <a href="{{URL::to('/payroll_employee')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Payroll

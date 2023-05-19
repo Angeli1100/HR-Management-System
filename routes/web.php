@@ -41,6 +41,7 @@ Route::get('register_employee', 'App\Http\Controllers\backend\EmployeeController
 Route::post('register_insert', 'App\Http\Controllers\backend\EmployeeController@registerInsert')->name('register_insert');
 Route::get('list_employee', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeList'])->name('backend.employee.list_employee');;
 Route::get('health_status', [App\Http\Controllers\backend\EmployeeController::class,'HealthStatus'])->name('backend.employee.health_status');;
+Route::get('payroll_employee', [App\Http\Controllers\backend\EmployeeController::class,'PayrollStatus'])->name('backend.employee.payroll_employee');;
 
 Route::get('/add_employee/{id}',[App\Http\Controllers\backend\EmployeeController::class,'EmployeeAdd'])->name('backend.employee.create_employee');
 Route::post('/insert_employee/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeInsert']);
@@ -52,33 +53,3 @@ Route::get('delete_employee/{id}', [App\Http\Controllers\backend\EmployeeControl
 Route::get('delete_details/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'DeleteDetails']);
 Route::get('delete_Health/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeDeleteHealth']);
 
-
-// public function AgentInsert(Request $request, $usersID)
-// {
-//     $user = User::find($usersID);
-//     $data = [
-//         'usersID' => $user->id,
-//         'agentName' => $user->name,
-//         'agentCat' => $request->agentCat,
-//         'registrationNum' => $request->registrationNum,
-//         'contact' => $request->contact,
-//         'address' => $request->address,
-//         'city' => $request->city,
-//         'postcode' => $request->postcode,
-//         'state' => $request->state,
-//         'country' => $request->country,
-//         'remarks' => $request->remarks,
-//     ];
-//     $insert = DB::table('agent')->insert($data);
-    
-//     if ($insert) {
-//         return redirect()->route('backend.agent.show_details', ['usersID' => $usersID])->with('success', 'Agent details added successfully!');
-//         // return redirect()->route('backend.agent.show_details')->with('success', 'Agent details added successfully!');
-//     } else {
-//         $notification = [
-//             'messege' => 'Error creating agent',
-//             'alert-type' => 'error'
-//         ];
-//         return redirect()->route('backend.agent.show_details')->with($notification);
-//     }
-// }

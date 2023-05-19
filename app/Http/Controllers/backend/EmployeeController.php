@@ -104,6 +104,13 @@ public function HealthStatus(Request $request)
         return view('backend.employee.health_status', compact('employees'));
     }
     
+    public function PayrollStatus(Request $request)
+    {
+        $employees = Employee::with('user')->get(['id','usersID', 'employeeName']);
+        // $list = Employee::where('usersID', $usersID) -> get ();
+        // $user = User::where('id', $usersID) -> first ();
+        return view('backend.employee.payroll_employee', compact('employees'));
+    }
 
 
     public function EmployeeAdd(Request $request, $usersID)

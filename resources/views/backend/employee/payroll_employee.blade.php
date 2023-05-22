@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($employees as $row)
+                        @foreach($employee as $row)
                         <tr>
                             <td>{{ $row->id }}</td>
                             <td>{{ $row->employeeName }}</td>

@@ -103,6 +103,13 @@ public function HealthStatus(Request $request)
         // $user = User::where('id', $usersID) -> first ();
         return view('backend.employee.health_status', compact('employees'));
     }
+
+    public function PayrollAdd(Request $request)
+    {
+        $employees = Employee::with('user')->get(['id', 'employeeName']);
+        return view('backend.employee.payroll_manager', compact('employees'));
+    }
+
     
     public function PayrollStatus(Request $request)
     {
@@ -120,39 +127,48 @@ public function HealthStatus(Request $request)
         return view('backend.employee.create_employee', compact('employee', 'usersID'));
     }
 
-
-
     public function EmployeeInsert(Request $request, $usersID)
     {
+        $validatedData = $request->validate([
+            'insert_img' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation rules for the image file
+        ]);
+    
+        if ($request->hasFile('insert_img')) {
+            $imagePath = $request->file('insert_img')->store('employee_images', 'public');
+        } else {
+            $imagePath = null;
+        }
+    
         $employee = Employee::updateOrCreate(
             ['id' => $request->id],
             [
                 'id' => $request->id,
                 'usersID' => $request->usersID,
                 'employeeName' => $request->employeeName,
-                'dob_employee' => $request->dob_employee ?: null,
-                'NRIC_employee' => $request->NRIC_employee ?: null,
-                'gender_employee' => $request->gender_employee ?: null,
-                'nationality_employee' => $request->nationality_employee ?: null,
-                'race_employee' => $request->race_employee ?: null,
-                'marital_employee' => $request->marital_employee ?: null,
-                'children_employee' => $request->children_employee ?: null,
-                'position_employee' => $request->position_employee ?: null,
-                'date' => $request->date ?: null,
-                'bank_name' => $request->bank_name ?: null,
-                'acc_number' => $request->acc_number ?: null,
-                'crime_employee' => $request->crime_employee ?: null,
-                'medical_employee' => $request->medical_employee ?: null,
-                'Vaccination' => $request->Vaccination ?: null,
-                'oku' => $request->oku ?: null,
-                'emergency_employee' => $request->emergency_employee ?: null,
-                'emergency_name' => $request->emergency_name ?: null,
-                'address' => $request->address ?: null,
-                'city' => $request->city ?: null,
-                'postcode' => $request->postcode ?: null,
-                'state' => $request->state ?: null,
-                'country' => $request->country ?: null,
-                'remarks' => $request->remarks ?: null,
+                'dob_employee' => $request->dob_employee,
+                'NRIC_employee' => $request->NRIC_employee,
+                'gender_employee' => $request->gender_employee,
+                'nationality_employee' => $request->nationality_employee,
+                'race_employee' => $request->race_employee,
+                'marital_employee' => $request->marital_employee,
+                'children_employee' => $request->children_employee,
+                'position_employee' => $request->position_employee ,
+                'date' => $request->date,
+                'bank_name' => $request->bank_name ,
+                'acc_number' => $request->acc_number ,
+                'crime_employee' => $request->crime_employee ,
+                'medical_employee' => $request->medical_employee ,
+                'Vaccination' => $request->Vaccination ,
+                'oku' => $request->oku ,
+                'emergency_employee' => $request->emergency_employee,
+                'emergency_name' => $request->emergency_name,
+                'address' => $request->address,
+                'city' => $request->city,
+                'postcode' => $request->postcode,
+                'state' => $request->state,
+                'country' => $request->country,
+                'remarks' => $request->remarks,
+                'insert_img' => $imagePath, // Assign the image file path to the 'insert_img' field
             ]
         );
     
@@ -168,10 +184,6 @@ public function HealthStatus(Request $request)
         }
     }
     
-    
-
-    
-
 
 public function EmployeeShow(Request $request, $usersID)
 {

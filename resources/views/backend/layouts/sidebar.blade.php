@@ -172,7 +172,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{URL::to('/addpayroll')}}" class="nav-link">
+            <a href="{{URL::to('/payroll_manager')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Add Payroll

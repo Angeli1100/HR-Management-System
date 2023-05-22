@@ -112,6 +112,7 @@ public function EmployeeInsert(Request $request, $usersID)
     $employee->state = $request->state;
     $employee->country = $request->country;
     $employee->remarks = $request->remarks;
+    
 
     if ($request->hasFile('insert_img')) {
         $file = $request->file('insert_img');

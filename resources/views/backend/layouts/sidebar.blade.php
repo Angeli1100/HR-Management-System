@@ -140,6 +140,62 @@
           </li>
 @endif
 
+@if (Auth::user()->role == 2 )
+
+<li class="nav-item">
+              {{-- <a href="{{route('register')}}" class="nav-link"> --}}
+              {{-- <a href="{{URL::to('/register_employee')}}" class="nav-link"> --}}
+              <a href="{{ route('register_employee') }}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Register New Employee
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{URL::to('/list_employee')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+              Employee Profile
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{URL::to('/user_list')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                User List
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{URL::to('/addpayroll')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Payroll
+              </p>
+            </a>
+          </li>
+         
+
+          <li class="nav-item">
+    
+    {{-- <a href="{{URL::to('/list_task/'.$task->usersID)}}" class="nav-link"> --}}
+    <a href="{{ route('backend.task.list_task', ['usersID' => Auth::user()->id]) }}" class="nav-link">
+      <i class="nav-icon fas fa-th"></i>
+      <p>
+        Information
+        <!-- <span class="right badge badge-danger">New</span> -->
+      </p>
+    </a>
+  </li>
+          
+        
+@endif
+
 @if (Auth::user()->role == 3 )
 
           <li class="nav-item">

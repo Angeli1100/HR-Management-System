@@ -40,8 +40,10 @@ Route::get('/delete_user/{id}', [App\Http\Controllers\backend\UsermanagementCont
 Route::get('register_employee', 'App\Http\Controllers\backend\EmployeeController@registerEmployee')->name('register_employee');
 Route::post('register_insert', 'App\Http\Controllers\backend\EmployeeController@registerInsert')->name('register_insert');
 Route::get('list_employee', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeList'])->name('backend.employee.list_employee');;
-Route::get('health_status', [App\Http\Controllers\backend\EmployeeController::class,'HealthStatus'])->name('backend.employee.health_status');;
-Route::get('payroll_employee', [App\Http\Controllers\backend\EmployeeController::class,'PayrollStatus'])->name('backend.employee.payroll_employee');;
+Route::get('health_status', [App\Http\Controllers\backend\EmployeeController::class,'HealthStatus'])->name('backend.employee.health_status');
+Route::get('/addpayroll', [App\Http\Controllers\backend\PayrollController::class,'AddPayroll'])->name('backend.employee.addpayroll');
+// Route::get('payroll_manager', [App\Http\Controllers\backend\ManagerController::class,'PayrollStatus'])->name('backend.employee.payroll_manager');;
+Route::post('/payroll', [PayrollController::class, 'store'])->name('payroll.store');
 
 Route::get('/add_employee/{id}',[App\Http\Controllers\backend\EmployeeController::class,'EmployeeAdd'])->name('backend.employee.create_employee');
 Route::post('/insert_employee/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeInsert']);

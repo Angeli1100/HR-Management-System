@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Employee;
 use App\Models\User;
+use App\Models\Attendance;
 
 class EmployeeController extends Controller
 {
@@ -202,35 +203,14 @@ public function ManagerShow(Request $request, $usersID)
 }
      
 
-public function Attendance(Request $request)
-    {
-        return view('backend.employee.attendance');
-    }
+     public function Attendance()
+     {
+         $employees = Employee::all(); // Fetch all employees from the Employee table
+     
+         return view('backend.employee.attendance', compact('employees'));
+     }
      
 
-    public function GenerateLink(Request $request)
-    {
-        $employee = Employee::updateOrCreate(
-            ['id' => $request->id],
-            [
-                'id' => $request->id,
-                'userID' => $request->userID,
-                'employeeName' => $request->employeeName,
-                'link' => $request->link,
-                'check_in' => $request->check_in,
-                'check_out' => $request->check_out,
-                'date' => $request->date,
-                ]
-            );    
-        $randomLink= Str::random(10);
-      
-
-        $attendance = new Attendance;
-        $attendance->Link = $randomLink;
-        $attendance->save();
-
-        return $randomLink;
-    }
 
 //     public function AgentInsert(Request $request)
 //     {

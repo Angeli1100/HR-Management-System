@@ -1,11 +1,12 @@
 <?php
+
+namespace App\Models;
+
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-   
-
     public static function generateLink()
     {
         $randomLink = Str::random(10); // Generate a random link with 10 characters
@@ -16,6 +17,4 @@ class Attendance extends Model
 
         return $randomLink; // Return the random link if needed
     }
-
-
 }

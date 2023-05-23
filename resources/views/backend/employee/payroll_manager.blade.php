@@ -24,7 +24,7 @@
                                     <td>{{ $row->employeeName }}</td>
                                     <td>{{ $row->position_employee }}</td>
                                     <td>
-                                        <a href="{{ URL::to('/show_details/'.$row->id) }}" class="btn btn-sm btn-info middle-align" id="showDetails">View Details</a>
+                                        <a href="{{ URL::to('/view_payroll/'.$row->id) }}" class="btn btn-sm btn-info middle-align" id="payrollManager">View Details</a>
                                         <a href="{{ URL::to('delete_Health/'.$row->id) }}" class="btn btn-sm btn-danger middle-align" id="delete">Delete</a>
                                     </td>
                                 </tr>

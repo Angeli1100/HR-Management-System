@@ -55,3 +55,9 @@ Route::get('delete_employee/{id}', [App\Http\Controllers\backend\EmployeeControl
 Route::get('delete_details/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'DeleteDetails']);
 Route::get('delete_Health/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeDeleteHealth']);
 
+//Payroll For Manager
+Route::get('/view_payroll/{id}', [App\Http\Controllers\backend\EmployeeController::class,'ManagerShow'])->name('backend.employee.view_payroll');
+
+//Attendance Link
+Route::get('attendance', [App\Http\Controllers\backend\EmployeeController::class,'Attendance'])->name('backend.employee.attendance');
+Route::post('generatelink', [App\Http\Controllers\backend\EmployeeController::class,'GenerateLink']);

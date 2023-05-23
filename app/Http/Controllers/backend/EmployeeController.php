@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\backend;
-
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -194,7 +194,43 @@ public function EmployeeShow(Request $request, $usersID)
 
 
 
+public function ManagerShow(Request $request, $usersID)
+{
+    $employee = Employee::with('user')->where('usersID', $usersID)->first();
+
+    return view('backend.employee.view_payroll', compact('employee', 'usersID'));
+}
      
+
+public function Attendance(Request $request)
+    {
+        return view('backend.employee.attendance');
+    }
+     
+
+    public function GenerateLink(Request $request)
+    {
+        $employee = Employee::updateOrCreate(
+            ['id' => $request->id],
+            [
+                'id' => $request->id,
+                'userID' => $request->userID,
+                'employeeName' => $request->employeeName,
+                'link' => $request->link,
+                'check_in' => $request->check_in,
+                'check_out' => $request->check_out,
+                'date' => $request->date,
+                ]
+            );    
+        $randomLink= Str::random(10);
+      
+
+        $attendance = new Attendance;
+        $attendance->Link = $randomLink;
+        $attendance->save();
+
+        return $randomLink;
+    }
 
 //     public function AgentInsert(Request $request)
 //     {
@@ -321,5 +357,8 @@ public function EmployeeDelete ($id)
                     }
   
         }
+
+
+
 
 }

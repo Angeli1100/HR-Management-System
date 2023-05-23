@@ -8,6 +8,7 @@
             <div class="card-header">
                 <h3 class="card-title">Profile Information</h3>
             </div>
+            <a href="{{ URL::to('/attendance') }}" class="btn btn-sm btn-info" id="generatelink" class="middle-align">Generate Attendance Link</a>
             </div>
             </div>
 

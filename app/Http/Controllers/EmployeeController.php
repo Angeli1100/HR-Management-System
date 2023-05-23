@@ -140,6 +140,7 @@ public function EmployeeShow(Request $request, $usersID)
     return view('backend.employee.show_details', compact('employee', 'usersID'));
 }
 
+
 //     public function AgentInsert(Request $request)
 //     {
 

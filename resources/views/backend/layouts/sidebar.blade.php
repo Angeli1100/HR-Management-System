@@ -131,7 +131,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{URL::to('/health_status')}}" class="nav-link">
+            <a href="{{URL::to('/attendance')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Daily Attendance

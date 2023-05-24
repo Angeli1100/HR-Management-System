@@ -209,6 +209,8 @@ public function ManagerShow(Request $request, $usersID)
      
          return view('backend.employee.attendance', compact('employees'));
      }
+
+     
      
 
 

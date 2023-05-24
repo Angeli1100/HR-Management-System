@@ -41,7 +41,7 @@ Route::get('register_employee', 'App\Http\Controllers\backend\EmployeeController
 Route::post('register_insert', 'App\Http\Controllers\backend\EmployeeController@registerInsert')->name('register_insert');
 Route::get('list_employee', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeList'])->name('backend.employee.list_employee');
 Route::get('health_status', [App\Http\Controllers\backend\EmployeeController::class,'HealthStatus'])->name('backend.employee.health_status');
-// Route::get('/addpayroll', [App\Http\Controllers\backend\PayrollController::class,'AddPayroll'])->name('backend.employee.addpayroll');
+Route::get('payroll_employee', [App\Http\Controllers\backend\EmployeeController::class,'PayrollStatus'])->name('backend.employee.payroll_employee');
 Route::get('payroll_manager', [App\Http\Controllers\backend\EmployeeController::class,'PayrollAdd'])->name('backend.employee.payroll_manager');
 #Route::post('/payroll', [PayrollController::class, 'store'])->name('payroll.store');
 

@@ -29,7 +29,7 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
-        <a href="{{ route('backend.employee.generateLink') }}" class="btn btn-sm btn-info" id="generatelink">Generate Attendance Link</a>
+        <a href="{{ route('backend.employee.attendance') }}" class="btn btn-sm btn-info" id="generatelink">Generate Attendance Link</a>
         @isset($link)
             <p>Generated Link: {{ $link }}</p>
         @endisset

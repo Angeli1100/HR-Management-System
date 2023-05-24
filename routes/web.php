@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Backend\EmployeeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +61,6 @@ Route::get('delete_Health/{id}', [App\Http\Controllers\backend\EmployeeControlle
 Route::get('/view_payroll/{id}', [App\Http\Controllers\backend\EmployeeController::class,'ManagerShow'])->name('backend.employee.view_payroll');
 
 //Attendance Link
-use App\Http\Controllers\Backend\EmployeeController;
 
 Route::get('attendance', [EmployeeController::class, 'Attendance'])->name('backend.employee.attendance');
-Route::get('generatelink', [EmployeeController::class, 'generateLink'])->name('backend.employee.generateLink');
+Route::get('generatelink', [EmployeeController::class, 'generateLink'])->name('backend.employee.attendance');

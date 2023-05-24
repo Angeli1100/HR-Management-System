@@ -76,7 +76,10 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Other Information</h3>
-            </div>
+                <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+</div>
             <div class="card-body">
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -187,4 +190,5 @@
                         </div>
     </div>
 </div>
+
 @endsection

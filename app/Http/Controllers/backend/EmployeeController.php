@@ -212,50 +212,13 @@ public function ManagerShow(Request $request, $usersID)
 
      public function generateLink()
 {
+    $employees = Employee::all();
     $attendance = Attendance::generateLink(); // Generate the link and save it in the database
 
     // Pass the generated link to the view
-    return view('backend.employee.generateLink', ['link' => $attendance->link]);
+    return view('backend.employee.attendance', ['link' => $attendance->link]);
 }
 
-     
-     
-
-
-//     public function AgentInsert(Request $request)
-//     {
-
-
-// $user = User::find($request->id);
-// $data = [];
-// $data['agentCat'] = $request->agentCat;
-// $data['registrationNum'] = $request->registrationNum;
-// $data['contact'] = $request->contact;
-// $data['address'] = $request->address;
-// $data['city'] = $request->city;
-// $data['postcode'] = $request->postcode;
-// $data['state'] = $request->state;
-// $data['country'] = $request->country;
-// $data['remarks'] = $request->remarks;
-// $insert = DB::table('agent')->insert($data);
-       
-// if ($usersID) 
-// {
-   
-//                 return Redirect()->route('agent.index')->with('success','Agent created successfully!');
-                 
-//         }
-// else
-//         {
-//         $notification=array
-//         (
-//         'messege'=>'error ',
-//         'alert-type'=>'error'
-//         );
-//         return Redirect()->route('agent.index')->with($notification);
-//         }
-           
-// }
 
     public function EmployeeEdit ($usersID)
     {

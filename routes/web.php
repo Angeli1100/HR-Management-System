@@ -62,4 +62,4 @@ Route::get('/view_payroll/{id}', [App\Http\Controllers\backend\EmployeeControlle
 use App\Http\Controllers\Backend\EmployeeController;
 
 Route::get('attendance', [EmployeeController::class, 'Attendance'])->name('backend.employee.attendance');
-Route::post('generatelink', [EmployeeController::class, 'GenerateLink'])->name('backend.employee.generatelink');
+Route::get('generatelink', [EmployeeController::class, 'generateLink'])->name('backend.employee.generateLink');

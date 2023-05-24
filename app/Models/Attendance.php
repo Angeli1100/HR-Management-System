@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
+    protected $fillable = ['link']; // Add 'link' to the fillable attributes
+    
     public static function generateLink()
     {
         $randomLink = Str::random(10); // Generate a random link with 10 characters
 
-        $attendance = new Attendance;
-        $attendance->link = $randomLink;
-        $attendance->save();
+        $attendance = Attendance::create(['link' => $randomLink]); // Save the link in the database
 
-        return $randomLink; // Return the random link if needed
+        return $attendance; // Return the Attendance model instance if needed
     }
 }

@@ -210,6 +210,14 @@ public function ManagerShow(Request $request, $usersID)
          return view('backend.employee.attendance', compact('employees'));
      }
 
+     public function generateLink()
+{
+    $attendance = Attendance::generateLink(); // Generate the link and save it in the database
+
+    // Pass the generated link to the view
+    return view('backend.employee.generateLink', ['link' => $attendance->link]);
+}
+
      
      
 

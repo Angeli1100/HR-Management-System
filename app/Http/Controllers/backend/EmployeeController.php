@@ -203,22 +203,39 @@ public function ManagerShow(Request $request, $usersID)
 }
      
 
-     public function Attendance()
+public function Attendance()
      {
          $employees = Employee::all(); // Fetch all employees from the Employee table
      
          return view('backend.employee.attendance', compact('employees'));
      }
 
-     public function generateLink()
-{
-    $employees = Employee::all();
-    $attendance = Attendance::generateLink(); // Generate the link and save it in the database
+     public function generateLink() 
+    {
+        $attendance = Attendance::generateLink();
+        // Pass the generated link to the view
+        return redirect()->route('backend.employee.view_link', ['link' => $attendance->link]);
+    }
 
-    // Pass the generated link to the view
-    return view('backend.employee.attendance', ['link' => $attendance->link]);
-}
+    public function viewLink($link) 
+    {
+        return view('backend.employee.view_link', compact('link'));
+    }
 
+    public function checkIn($link)
+    {
+        $userId = auth()->user()->id;
+        $name = auth()->user()->name;
+    
+        // Store the link, user ID, and name in the database
+        Attendance::create([
+            'link' => $link,
+            'userID' => $userId,
+            'employeeName' => $name,
+        ]);
+    
+        return view('backend.employee.view_link', compact('link'));    
+    }
 
     public function EmployeeEdit ($usersID)
     {

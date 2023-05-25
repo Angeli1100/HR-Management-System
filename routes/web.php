@@ -63,4 +63,6 @@ Route::get('/view_payroll/{id}', [App\Http\Controllers\backend\EmployeeControlle
 //Attendance Link
 
 Route::get('attendance', [EmployeeController::class, 'Attendance'])->name('backend.employee.attendance');
-Route::get('generatelink', [EmployeeController::class, 'generateLink'])->name('backend.employee.attendance');
+Route::get('view_link/{link}', [EmployeeController::class, 'viewLink'])->name('backend.employee.view_link');
+Route::get('generate_link', [EmployeeController::class, 'generateLink'])->name('backend.employee.generate_link');
+Route::get('check_in/{link}', [EmployeeController::class, 'checkIn'])->name('backend.employee.check_in');

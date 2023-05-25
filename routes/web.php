@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\EmployeeController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,8 +31,6 @@ Route::get('/edit_task/{id}', [App\Http\Controllers\backend\TaskController::clas
 Route::post('/update_task/{id}', [App\Http\Controllers\backend\TaskController::class,'TaskUpdate']);
 Route::get('/delete_task/{id}', [App\Http\Controllers\backend\TaskController::class,'TaskDelete']);
 
-// Route::get('/list_task/{usersID}', [App\Http\Controllers\backend\TaskController::class,'AgentViewList'])->name('backend.task.list_task');
-
 Route::get('user_list', [App\Http\Controllers\backend\UsermanagementController::class,'UserList'])->name('user.index');
 Route::get('/edit_user/{id}', [App\Http\Controllers\backend\UsermanagementController::class,'UserEdit']);
 Route::post('/update_user/{id}', [App\Http\Controllers\backend\UsermanagementController::class,'UserUpdate']);
@@ -45,24 +42,24 @@ Route::get('list_employee', [App\Http\Controllers\backend\EmployeeController::cl
 Route::get('health_status', [App\Http\Controllers\backend\EmployeeController::class,'HealthStatus'])->name('backend.employee.health_status');
 Route::get('payroll_employee', [App\Http\Controllers\backend\EmployeeController::class,'PayrollStatus'])->name('backend.employee.payroll_employee');
 Route::get('payroll_manager', [App\Http\Controllers\backend\EmployeeController::class,'PayrollAdd'])->name('backend.employee.payroll_manager');
-#Route::post('/payroll', [PayrollController::class, 'store'])->name('payroll.store');
 
 Route::get('/add_employee/{id}',[App\Http\Controllers\backend\EmployeeController::class,'EmployeeAdd'])->name('backend.employee.create_employee');
 Route::post('/insert_employee/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeInsert']);
 Route::get('/show_details/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeShow'])->name('backend.employee.show_details');
-// Route::get('/edit_agent/{usersID}', [App\Http\Controllers\backend\AgentController::class,'AgentEdit']);
 Route::get('/edit_employee/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeEdit']);
-Route::POST('/update_employee/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeUpdate']);
+Route::post('/update_employee/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeUpdate']);
 Route::get('delete_employee/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeDelete']);
 Route::get('delete_details/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'DeleteDetails']);
 Route::get('delete_Health/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeDeleteHealth']);
 
-//Payroll For Manager
+// Payroll For Manager
 Route::get('/view_payroll/{id}', [App\Http\Controllers\backend\EmployeeController::class,'ManagerShow'])->name('backend.employee.view_payroll');
 
-//Attendance Link
-
+// Attendance Link
 Route::get('attendance', [EmployeeController::class, 'Attendance'])->name('backend.employee.attendance');
 Route::get('view_link/{link}', [EmployeeController::class, 'viewLink'])->name('backend.employee.view_link');
 Route::get('generate_link', [EmployeeController::class, 'generateLink'])->name('backend.employee.generate_link');
 Route::get('check_in/{link}', [EmployeeController::class, 'checkIn'])->name('backend.employee.check_in');
+Route::get('deactivate_link', [EmployeeController::class, 'deactivateLink'])->name('backend.employee.deactivate_link');
+Route::get('get_link', [EmployeeController::class, 'getActiveLink'])->name('active.link');
+Route::get('page_link', [EmployeeController::class, 'pageLink'])->name('backend.employee.page_link');

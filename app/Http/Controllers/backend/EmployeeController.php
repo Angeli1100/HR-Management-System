@@ -203,39 +203,81 @@ public function ManagerShow(Request $request, $usersID)
 }
      
 
-public function Attendance()
-     {
-         $employees = Employee::all(); // Fetch all employees from the Employee table
-     
-         return view('backend.employee.attendance', compact('employees'));
-     }
+public function attendance()
+{
+    $employees = Employee::all(); // Fetch all employees from the Employee table
 
-     public function generateLink() 
-    {
-        $attendance = Attendance::generateLink();
-        // Pass the generated link to the view
-        return redirect()->route('backend.employee.view_link', ['link' => $attendance->link]);
+    return view('backend.employee.attendance', compact('employees'));
+}
+
+public function generateLink()
+{
+    $attendance = Attendance::generateLink();
+
+    // Set the status to "active"
+    $attendance->status = 'active';
+    $attendance->save();
+
+    // Pass the generated link to the view
+    return redirect()->route('backend.employee.view_link', ['link' => $attendance->link]);
+}
+
+public function deactivateLink()
+{
+    $attendance = Attendance::where('status', 'active')->first();
+
+    if ($attendance) {
+        // Set the status to "deactivate"
+        $attendance->status = 'deactivate';
+        $attendance->save();
     }
 
-    public function viewLink($link) 
-    {
-        return view('backend.employee.view_link', compact('link'));
+    // Redirect back to the previous page or any desired page
+    return redirect()->back();
+}
+
+public function viewLink($link)
+{
+    return view('backend.employee.view_link', compact('link'));
+}
+
+public function pageLink()
+{
+    $link = Attendance::where('status', 'active')->value('link');
+    return view('backend.employee.page_link', compact('link'));
+}
+
+public function checkIn($link)
+{
+    $attendance = Attendance::where('link', $link)->first();
+
+    if (!$attendance) {
+        // Handle the case when the attendance record is not found
+        // You can redirect back with an error message or handle it according to your application logic
     }
 
-    public function checkIn($link)
-    {
-        $userId = auth()->user()->id;
-        $name = auth()->user()->name;
-    
-        // Store the link, user ID, and name in the database
-        Attendance::create([
-            'link' => $link,
-            'userID' => $userId,
-            'employeeName' => $name,
-        ]);
-    
-        return view('backend.employee.view_link', compact('link'));    
-    }
+    $userId = auth()->user()->id;
+    $name = auth()->user()->name;
+
+    // Store the link, user ID, and name in the database
+    $newAttendance = Attendance::create([
+        'link' => $link,
+        'userID' => $userId,
+        'employeeName' => $name,
+    ]);
+
+    return view('backend.employee.view_link', compact('link'));
+}
+
+
+// public function getActiveLink()
+// {
+//     $link = Attendance::where('status', 'active')->value('link');
+//     return redirect()->route('backend.employee.check_in', ['link' => $link]);
+// }
+
+
+
 
     public function EmployeeEdit ($usersID)
     {

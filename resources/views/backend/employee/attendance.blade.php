@@ -29,10 +29,12 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
-        <a href="{{ route('backend.employee.generate_link') }}" class="btn btn-sm btn-info" id="generateLink">Generate Attendance Link</a> <!-- id="viewLink" refer to controller function name viewLink -->
+        <a href="{{ route('backend.employee.generate_link') }}" class="btn btn-sm btn-info" id="generateLink">Generate Attendance Link</a> <!-- id="viewLink" refers to the controller function name viewLink -->
+        <a href="{{ route('backend.employee.deactivate_link') }}" class="btn btn-sm btn-info" id="deactivateLink">Deactivate Link</a> 
         @isset($link)
-            <p>Generated Link: {{ $link }}</p>
-        @endisset
+    <p>Generated Link: {{ $link }}</p>
+@endisset
+
     </div>
 </div>
 @endsection

@@ -218,8 +218,11 @@ public function generateLink()
     $attendance->status = 'active';
     $attendance->save();
 
+    // Flash a success message to the session
+    session()->flash('success', 'The link has been generated.');
+
     // Pass the generated link to the view
-    return redirect()->route('backend.employee.view_link', ['link' => $attendance->link]);
+    return redirect()->route('backend.employee.attendance', ['link' => $attendance->link]);
 }
 
 public function deactivateLink()
@@ -230,12 +233,16 @@ public function deactivateLink()
         // Set the status to "deactivate"
         $attendance->status = 'deactivate';
         $attendance->save();
+
+        // Flash a success message to the session
+        session()->flash('success', 'The link has been deactivated.');
     }
 
     // Redirect back to the previous page or any desired page
     return redirect()->back();
 }
 
+    
 public function viewLink($link)
 {
     return view('backend.employee.view_link', compact('link'));
@@ -247,13 +254,14 @@ public function pageLink()
     return view('backend.employee.page_link', compact('link'));
 }
 
-public function checkIn(Request $request, $link)
+public function checkIn($link)
 {
     $attendance = Attendance::where('link', $link)->first();
 
     if (!$attendance) {
         // Handle the case when the attendance record is not found
         // You can redirect back with an error message or handle it according to your application logic
+       
     }
 
     $userId = auth()->user()->id;
@@ -264,6 +272,7 @@ public function checkIn(Request $request, $link)
         'link' => $link,
         'userID' => $userId,
         'employeeName' => $name,
+        session()->flash('success', 'Congratulation! You had succesfully check-in.')
     ]);
 
     return view('backend.employee.view_link', compact('link'));

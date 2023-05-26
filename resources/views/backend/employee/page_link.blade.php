@@ -13,11 +13,16 @@
                     Click here to check in.     
                     @isset($link)
                     <form action="{{ route('backend.employee.check_in', $link) }}" method="POST">
-    @csrf
-    <button type="submit" class="btn btn-sm btn-info" id="checkIn">Check In</button>
-</form>
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-info" id="checkIn">Check In</button>
+                    </form>
+                    @endif
 
-                    @endisset
+                    @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
                 </table>
             </div>
             <!-- /.card-body -->

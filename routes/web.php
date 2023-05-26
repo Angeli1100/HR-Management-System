@@ -59,7 +59,9 @@ Route::get('/view_payroll/{id}', [App\Http\Controllers\backend\EmployeeControlle
 Route::get('attendance', [EmployeeController::class, 'Attendance'])->name('backend.employee.attendance');
 Route::get('view_link/{link}', [EmployeeController::class, 'viewLink'])->name('backend.employee.view_link');
 Route::get('generate_link', [EmployeeController::class, 'generateLink'])->name('backend.employee.generate_link');
-Route::get('check_in/{link}', [EmployeeController::class, 'checkIn'])->name('backend.employee.check_in');
+Route::post('/check-in/{link}', [EmployeeController::class, 'checkIn'])->name('backend.employee.check_in');
+
 Route::get('deactivate_link', [EmployeeController::class, 'deactivateLink'])->name('backend.employee.deactivate_link');
 Route::get('get_link', [EmployeeController::class, 'getActiveLink'])->name('active.link');
 Route::get('page_link', [EmployeeController::class, 'pageLink'])->name('backend.employee.page_link');
+

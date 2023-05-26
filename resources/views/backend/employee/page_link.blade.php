@@ -12,7 +12,11 @@
                 <table id="example1" class="table table-bordered table-striped">
                     Click here to check in.     
                     @isset($link)
-                        <a href="{{ $link }}" class="btn btn-sm btn-info" id="checkIn">Check In</a>
+                    <form action="{{ route('backend.employee.check_in', $link) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-sm btn-info" id="checkIn">Check In</button>
+</form>
+
                     @endisset
                 </table>
             </div>

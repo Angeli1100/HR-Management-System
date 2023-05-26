@@ -247,7 +247,7 @@ public function pageLink()
     return view('backend.employee.page_link', compact('link'));
 }
 
-public function checkIn($link)
+public function checkIn(Request $request, $link)
 {
     $attendance = Attendance::where('link', $link)->first();
 

@@ -12,6 +12,8 @@
                 <table id="example1" class="table table-bordered table-striped">
                   Link has been generated.
                   @isset($link)
+                  
+
     <a href="{{ $link }}" class="btn btn-sm btn-info" id="checkIn">Check In</a>
 @endisset
 

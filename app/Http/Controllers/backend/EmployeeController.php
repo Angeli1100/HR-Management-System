@@ -205,9 +205,9 @@ public function ManagerShow(Request $request, $usersID)
 
 public function attendance()
 {
-    $employees = Employee::all(); // Fetch all employees from the Employee table
+    $attendances = Attendance::whereNotNull('employeeName')->get();// Fetch all employees from the Employee table
 
-    return view('backend.employee.attendance', compact('employees'));
+    return view('backend.employee.attendance', compact('attendances'));
 }
 
 public function generateLink()
@@ -254,6 +254,33 @@ public function pageLink()
     return view('backend.employee.page_link', compact('link'));
 }
 
+// public function checkIn($link)
+// {
+//     $attendance = Attendance::where('link', $link)->first();
+
+//     if (!$attendance) {
+//         // Handle the case when the attendance record is not found
+//         // You can redirect back with an error message or handle it according to your application logic
+       
+//     }
+
+//     $userId = auth()->user()->id;
+//     $name = auth()->user()->name;
+
+//     // Store the link, user ID, and name in the database
+//     $newAttendance = Attendance::create([
+//         'link' => $link,
+//         'userID' => $userId,
+//         'employeeName' => $name,
+//     ]);
+
+//     unset($newAttendance->check_out);
+
+//     session()->flash('success', 'Congratulations! You have successfully checked in.');
+
+//     return view('backend.employee.view_link', compact('link'));
+// }
+
 public function checkIn($link)
 {
     $attendance = Attendance::where('link', $link)->first();
@@ -272,9 +299,11 @@ public function checkIn($link)
         'link' => $link,
         'userID' => $userId,
         'employeeName' => $name,
-        session()->flash('success', 'Congratulation! You had succesfully check-in.')
+        'check_in' => now(), // Set the check_in column to the current timestamp
+        'date' => now()->toDateString() // Set the date column to the current date
     ]);
 
+    session()->flash('success', 'Congratulation! You have successfully checked in.');
     return view('backend.employee.view_link', compact('link'));
 }
 

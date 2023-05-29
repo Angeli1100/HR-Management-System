@@ -21,9 +21,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($employees as $row)
+                        @foreach($attendances as $row)
                         <tr>
-                            <td>{{ $row->id }}</td>
+                            <td>{{ $row->userID }}</td>
                             <td>{{ $row->employeeName }}</td>
                             <td>{{ $row->check_in }}</td>
                             <td>{{ $row->check_out }}</td>

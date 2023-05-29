@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-    protected $fillable = ['link','userID','employeeName','check_in','date']; // Add 'link' to the fillable attributes
+    protected $fillable = ['link', 'userID', 'employeeName', 'check_in', 'check_out', 'date']; // Add 'link' to the fillable attributes
     
     public static function generateLink()
     {
@@ -15,6 +15,6 @@ class Attendance extends Model
 
         $attendance = Attendance::create(['link' => $randomLink]); // Save the link in the database
 
-        return $attendance;// Return the Attendance model instance if needed
+        return $attendance; // Return the Attendance model instance if needed
     }
 }

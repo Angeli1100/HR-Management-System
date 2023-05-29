@@ -10,19 +10,22 @@
             </div>
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-                    Click here to check in.     
+                    Click here to check in.
                     @isset($link)
-                    <form action="{{ route('backend.employee.check_in', $link) }}" method="POST">
+                    <form action="{{ route('backend.employee.check_in', $link) }}" method="POST" style="display: inline;">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-info" id="checkIn">Check In</button>
                     </form>
                     @endif
 
-                    @if(session()->has('success'))
-                        <div class="alert alert-success">
-                            {{ session()->get('success') }}
-                        </div>
+                    @isset($link)
+                    
+                    <form action="{{ route('backend.employee.check_out', $link) }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-danger" id="checkOut">Check Out</button>
+                    </form>
                     @endif
+
                 </table>
             </div>
             <!-- /.card-body -->

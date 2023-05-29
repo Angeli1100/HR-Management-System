@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Attendance;
+use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {
@@ -254,66 +255,51 @@ public function pageLink()
     return view('backend.employee.page_link', compact('link'));
 }
 
-// public function checkIn($link)
-// {
-//     $attendance = Attendance::where('link', $link)->first();
 
-//     if (!$attendance) {
-//         // Handle the case when the attendance record is not found
-//         // You can redirect back with an error message or handle it according to your application logic
-       
-//     }
-
-//     $userId = auth()->user()->id;
-//     $name = auth()->user()->name;
-
-//     // Store the link, user ID, and name in the database
-//     $newAttendance = Attendance::create([
-//         'link' => $link,
-//         'userID' => $userId,
-//         'employeeName' => $name,
-//     ]);
-
-//     unset($newAttendance->check_out);
-
-//     session()->flash('success', 'Congratulations! You have successfully checked in.');
-
-//     return view('backend.employee.view_link', compact('link'));
-// }
-
-public function checkIn($link)
+public function checkIn(Request $request, $link)
 {
-    $attendance = Attendance::where('link', $link)->first();
-
-    if (!$attendance) {
-        // Handle the case when the attendance record is not found
-        // You can redirect back with an error message or handle it according to your application logic
-       
-    }
-
     $userId = auth()->user()->id;
     $name = auth()->user()->name;
 
-    // Store the link, user ID, and name in the database
+    // Create a new attendance record for the employee
     $newAttendance = Attendance::create([
         'link' => $link,
         'userID' => $userId,
         'employeeName' => $name,
-        'check_in' => now(), // Set the check_in column to the current timestamp
-        'date' => now()->toDateString() // Set the date column to the current date
+        'check_in' => Carbon::now(), // Set the check_in column to the current timestamp
+        'check_out' => null,
     ]);
 
-    session()->flash('success', 'Congratulation! You have successfully checked in.');
+    session()->flash('success', 'Congratulations! You have successfully checked in.');
     return view('backend.employee.view_link', compact('link'));
 }
 
 
-// public function getActiveLink()
-// {
-//     $link = Attendance::where('status', 'active')->value('link');
-//     return redirect()->route('backend.employee.check_in', ['link' => $link]);
-// }
+public function checkOut(Request $request, $link)
+{
+    // Find the attendance record based on the link and user ID
+    $attendance = Attendance::where('link', $link)
+                            ->where('userID', auth()->user()->id)
+                            ->latest()
+                            ->first();
 
+    if (!$attendance) {
+        // Handle the case when the attendance record is not found
+        // You can redirect back with an error message or handle it according to your application logic
+    }
+
+    // Set the check_out column to the current timestamp
+    $attendance->check_out = now();
+    $attendance->save();
+
+    // Create a new attendance record for the employee
+    $userId = auth()->user()->id;
+    $name = auth()->user()->name;
+
+    session()->flash('success', 'Congratulations! You have successfully checked out.');
+
+    return view('backend.employee.view_link', compact('link'));
+}
 
 
 

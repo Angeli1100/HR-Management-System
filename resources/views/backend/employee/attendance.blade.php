@@ -16,7 +16,7 @@
                             <th>Employee ID</th>
                             <th>Name</th> 
                             <th>Check In</th> 
-                            <th>Check Out</th> 
+                            <!-- <th>Check Out</th>  -->
                             <th>Date</th> 
                         </tr>
                     </thead>
@@ -26,7 +26,7 @@
                             <td>{{ $row->userID }}</td>
                             <td>{{ $row->employeeName }}</td>
                             <td>{{ $row->check_in }}</td>
-                            <td>{{ $row->check_out }}</td>
+                            <!-- <td>{{ $row->check_out }}</td> -->
                             <td>{{ $row->date }}</td>
                         </tr>
                         @endforeach

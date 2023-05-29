@@ -60,6 +60,7 @@ Route::get('attendance', [EmployeeController::class, 'Attendance'])->name('backe
 Route::get('view_link/{link}', [EmployeeController::class, 'viewLink'])->name('backend.employee.view_link');
 Route::get('generate_link', [EmployeeController::class, 'generateLink'])->name('backend.employee.generate_link');
 Route::post('/check-in/{link}', [EmployeeController::class, 'checkIn'])->name('backend.employee.check_in');
+Route::post('/check-out/{link}', [EmployeeController::class, 'checkOut'])->name('backend.employee.check_out');
 
 Route::get('deactivate_link', [EmployeeController::class, 'deactivateLink'])->name('backend.employee.deactivate_link');
 Route::get('get_link', [EmployeeController::class, 'getActiveLink'])->name('active.link');

@@ -16,7 +16,7 @@
                             <th>No.</th>
                             <th>Date</th> 
                             <th>Employee ID</th>
-                            <th>Name</th> 
+                            <th>Employee Name</th> 
                             <th>Check In</th> 
                             <th>Check Out</th> 
                         </tr>
@@ -40,6 +40,7 @@
         <!-- /.card -->
         <a href="{{ route('backend.employee.generate_link') }}" class="btn btn-sm btn-info" id="generateLink">Generate Attendance Link</a>
         <a href="{{ route('backend.employee.deactivate_link') }}" class="btn btn-sm btn-info" id="deactivateLink">Deactivate Link</a> 
+        <!-- <a href="{{ route('backend.employee.generate_report') }}" class="btn btn-sm btn-info" id="tableToPDF">Generate Report</a>  -->
         @isset($link)
             <p>Generated Link: {{ $link }}</p>
         @endisset

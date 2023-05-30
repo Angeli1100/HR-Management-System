@@ -66,3 +66,6 @@ Route::get('deactivate_link', [EmployeeController::class, 'deactivateLink'])->na
 Route::get('get_link', [EmployeeController::class, 'getActiveLink'])->name('active.link');
 Route::get('page_link', [EmployeeController::class, 'pageLink'])->name('backend.employee.page_link');
 
+// PDF Attendance Report
+Route::get('/generate_report', [EmployeeController::class, 'tableToPDF'])->name('tableToPDF');
+

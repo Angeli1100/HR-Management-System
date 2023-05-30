@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-    protected $fillable = ['link', 'userID', 'employeeName', 'check_in', 'check_out', 'date']; // Add 'link' to the fillable attributes
+    protected $fillable = ['link', 'userID', 'employeeName', 'check_in', 'check_out', 'date', 'id']; // Add 'link' to the fillable attributes
     
     public static function generateLink()
     {

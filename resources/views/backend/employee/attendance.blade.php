@@ -6,28 +6,30 @@
         <!-- Profile Information -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Profile Information</h3>
+                <h3 class="card-title">Attendance Record</h3>
             </div>
             <div class="card-body">
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>No.</th>
+                            <th>Date</th> 
                             <th>Employee ID</th>
                             <th>Name</th> 
                             <th>Check In</th> 
-                            <!-- <th>Check Out</th>  -->
-                            <th>Date</th> 
+                            <th>Check Out</th> 
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($attendances as $row)
                         <tr>
+                            <td>{{ $row->id }}</td>
+                            <td>{{ $row->date }}</td>
                             <td>{{ $row->userID }}</td>
                             <td>{{ $row->employeeName }}</td>
                             <td>{{ $row->check_in }}</td>
-                            <!-- <td>{{ $row->check_out }}</td> -->
-                            <td>{{ $row->date }}</td>
+                            <td>{{ $row->check_out }}</td>
                         </tr>
                         @endforeach
                     </tbody>

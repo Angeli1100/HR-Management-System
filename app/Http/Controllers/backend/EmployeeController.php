@@ -11,6 +11,8 @@ use App\Models\Employee;
 use App\Models\User;
 use App\Models\Attendance;
 use Carbon\Carbon;
+use PDF;
+// use Barryvdh\DomPDF\Facade;
 
 class EmployeeController extends Controller
 {
@@ -301,6 +303,15 @@ public function checkOut(Request $request, $link)
     return view('backend.employee.view_link', compact('link'));
 }
 
+public function generatePDF()
+{
+    $data = Attendance::all(); // Retrieve all data from the Employee table
+
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('backend.employee.pdf', compact('data')); // Load the view and pass the data to it
+
+    return $pdf->download('pdf.pdf'); // Download the PDF file
+
+}
 
 
     public function EmployeeEdit ($usersID)

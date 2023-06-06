@@ -17,12 +17,12 @@
                             <th>Date</th> 
                             <th>Employee ID</th>
                             <th>Employee Name</th> 
-                            <th>Check In</th> 
+                            <th>Check In</th>  
                             <th>Check Out</th> 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($attendances as $row)
+                        @foreach($data as $row)
                         <tr>
                             <td>{{ $row->id }}</td>
                             <td>{{ $row->date }}</td>
@@ -38,13 +38,7 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
-        <a href="{{ route('backend.employee.generate_link') }}" class="btn btn-sm btn-info" id="generateLink">Generate Attendance Link</a>
-        <a href="{{ route('backend.employee.deactivate_link') }}" class="btn btn-sm btn-info" id="deactivateLink">Deactivate Link</a> 
-        <!-- <a href="{{ route('generate_report') }}" class="btn btn-sm btn-info" id="generatePDF">Generate Report</a>  -->
-        <a href="{{ URL::to('generate_report') }}" class="btn btn-sm btn-info" id="generatePDF">Generate Report</a>
-        @isset($link)
-            <p>Generated Link: {{ $link }}</p>
-        @endisset
+      
     </div>
 </div>
 @endsection

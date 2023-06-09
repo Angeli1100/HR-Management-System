@@ -68,4 +68,5 @@ Route::get('page_link', [EmployeeController::class, 'pageLink'])->name('backend.
 
 // PDF Attendance Report
 Route::get('/generate_report', [EmployeeController::class, 'generatePDF'])->name('generate_report');
+Route::get('/printPDF', [EmployeeController::class, 'printPDF'])->name('printPDF');
 

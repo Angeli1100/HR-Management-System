@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -11,8 +12,9 @@ use App\Models\Employee;
 use App\Models\User;
 use App\Models\Attendance;
 use Carbon\Carbon;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use PDF;
-// use Barryvdh\DomPDF\Facade;
+
 
 class EmployeeController extends Controller
 {
@@ -258,6 +260,7 @@ public function pageLink()
 }
 
 
+
 public function checkIn(Request $request, $link)
 {
     $userId = auth()->user()->id;
@@ -303,16 +306,24 @@ public function checkOut(Request $request, $link)
     return view('backend.employee.view_link', compact('link'));
 }
 
+
 public function generatePDF()
 {
-    $data = Attendance::all(); // Retrieve all data from the Employee table
+    $attendances = Attendance::all(); // Retrieve all data from the Attendance table
 
-    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('backend.employee.pdf', compact('data')); // Load the view and pass the data to it
+    $pdf = PDF::loadView('backend.employee.print_attendance', compact('attendances')); // Load the view and pass the data to it
 
-    return $pdf->download('pdf.pdf'); // Download the PDF file
-
+    return $pdf-> inline ('attendance_record.pdf'); // Download the PDF file with the given name
 }
 
+public function printPDF()
+{
+    $attendances = Attendance::all(); // Retrieve all data from the Attendance table
+
+    $pdf = PDF::loadView('backend.employee.file', compact('attendances')); // Load the view and pass the data to it
+
+    return $pdf->download('attendance_record.pdf'); // Download the PDF file with the given name
+}
 
     public function EmployeeEdit ($usersID)
     {

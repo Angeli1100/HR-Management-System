@@ -132,6 +132,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{URL::to('/printPDF')}}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              Daily 
+            </p>
+          </a>
+        </li>
         @endif
 
         @if (Auth::user()->role == 2 )

@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col-md-12">
         <!-- Profile Information -->
@@ -36,7 +35,10 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
-        <!DOCTYPE html>
+    </div>
+</div>
+
+<!DOCTYPE html>
 <html>
 <head>
     <style>
@@ -78,7 +80,3 @@
     </table>
 </body>
 </html>
-
-    </div>
-</div>
-

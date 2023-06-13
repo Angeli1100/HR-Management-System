@@ -67,6 +67,6 @@ Route::get('get_link', [EmployeeController::class, 'getActiveLink'])->name('acti
 Route::get('page_link', [EmployeeController::class, 'pageLink'])->name('backend.employee.page_link');
 
 // PDF Attendance Report
-Route::get('/generate_report', [EmployeeController::class, 'generatePDF'])->name('generate_report');
+Route::get('/generate_report', [EmployeeController::class, 'generatePDF'])->name('generate_pdf');
 Route::get('/filterMonth', [EmployeeController::class, 'filterMonth'])->name('attendance.filter');
 Route::get('/filterYear', [EmployeeController::class, 'filterYear'])->name('attendance.year');

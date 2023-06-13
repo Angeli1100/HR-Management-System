@@ -3,10 +3,9 @@
         <!-- Profile Information -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Attendance Record</h3>
+            <h3 class="card-title">Attendance Record</h3>
             </div>
             <div class="card-body">
-
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -57,26 +56,4 @@
         }
     </style>
 </head>
-<body>
-    <h1>Attendance Record</h1>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Employee Name</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($attendances as $attendance)
-                <tr>
-                    <td>{{ $attendance->date }}</td>
-                    <td>{{ $attendance->employee_name }}</td>
-                    <td>{{ $attendance->status }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</body>
 </html>

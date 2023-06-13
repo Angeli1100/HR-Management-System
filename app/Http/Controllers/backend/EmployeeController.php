@@ -307,16 +307,6 @@ public function checkOut(Request $request, $link)
 }
 
 
-public function generatePDF($month)
-{
-    $attendances = Attendance::whereMonth('date', $month)->get(); // Retrieve all data from the Attendance table
-
-    $pdf = PDF::loadView('backend.employee.print_attendance', compact('attendances')); // Load the view and pass the data to it
-
-    return $pdf-> inline ('attendance_record.pdf'); // Download the PDF file with the given name
-}
-
-
 public function filterMonth(Request $request)
 {
     $selectMonth = $request->input('month');
@@ -336,7 +326,14 @@ public function filterYear(Request $request)
     return view('backend.employee.attendance')->with('attendances', $attendances);
 }
 
+public function generatePDF()
+{
+    $attendances = Attendance::all(); // Retrieve all data from the Attendance table
 
+    $pdf = PDF::loadView('backend.employee.print_attendance', compact('attendances')); // Load the view and pass the data to it
+
+    return $pdf-> inline ('attendance_record.pdf'); // Download the PDF file with the given name
+}
 
 
     public function EmployeeEdit ($usersID)

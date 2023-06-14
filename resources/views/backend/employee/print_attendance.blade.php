@@ -3,7 +3,7 @@
         <!-- Profile Information -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Attendance Record</h3>
+                <h3 class="card-title">ARKOD EMPLOYEE DAILY ATTENDANCE</h3>
             </div>
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">

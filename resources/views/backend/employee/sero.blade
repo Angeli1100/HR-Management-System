@@ -26,7 +26,6 @@
                             <a class="dropdown-item" href="{{ route('attendance.filter', ['month' => '10']) }}">October</a>
                             <a class="dropdown-item" href="{{ route('attendance.filter', ['month' => '11']) }}">November</a>
                             <a class="dropdown-item" href="{{ route('attendance.filter', ['month' => '12']) }}">December</a>
-                            <!-- Add the remaining month links -->
                         </div>
                     </div>
                     <div class="btn-group">
@@ -43,43 +42,40 @@
                             <a class="dropdown-item" href="{{ route('attendance.year', ['year' => '2028']) }}">2028</a>
                             <a class="dropdown-item" href="{{ route('attendance.year', ['year' => '2029']) }}">2029</a>
                             <a class="dropdown-item" href="{{ route('attendance.year', ['year' => '2030']) }}">2030</a>
-                            <!-- Add the remaining year links -->
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Date</th>
-                                <th>Employee ID</th>
-                                <th>Employee Name</th>
-                                <th>Check In</th>
-                                <th>Check Out</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($attendances as $row)
-                            <tr>
-                                <td>{{ $row->id }}</td>
-                                <td>{{ $row->date }}</td>
-                                <td>{{ $row->userID }}</td>
-                                <td>{{ $row->employeeName }}</td>
-                                <td>{{ $row->check_in }}</td>
-                                <td>{{ $row->check_out }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Date</th>
+                            <th>Employee ID</th>
+                            <th>Employee Name</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($attendances as $row)
+                        <tr>
+                            <td>{{ $row->id }}</td>
+                            <td>{{ $row->date }}</td>
+                            <td>{{ $row->userID }}</td>
+                            <td>{{ $row->employeeName }}</td>
+                            <td>{{ $row->check_in }}</td>
+                            <td>{{ $row->check_out }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
             <div class="card-footer">
-            <div class="btn-group mt-3">
-                <a href="{{ route('backend.employee.generate_link') }}" class="btn btn-info mr-1" id="generateLink">Generate Attendance Link</a>
-                <a href="{{ route('backend.employee.deactivate_link') }}" class="btn btn-info mr-1" id="deactivateLink">Deactivate Link</a>
-                <a href="{{ route('generate_pdf', ['url' => Request::fullUrl()]) }}" class="btn btn-info" id="generatePDF">Generate Report</a>
-            </div>
+                <div class="btn-group mt-3">
+                    <a href="{{ route('backend.employee.generate_link') }}" class="btn btn-info" id="generateLink">Generate Attendance Link</a>
+                    <a href="{{ route('backend.employee.deactivate_link') }}" class="btn btn-info" id="deactivateLink">Deactivate Link</a>
+                    <a href="{{ route('generate_pdf', ['url' => Request::fullUrl()]) }}" class="btn btn-info" id="generatePDF">Generate Report</a>
+                </div>
                 @isset($link)
                 <p>Generated Link: {{ $link }}</p>
                 @endisset

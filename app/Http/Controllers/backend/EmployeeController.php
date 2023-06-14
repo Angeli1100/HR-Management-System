@@ -313,8 +313,9 @@ public function filterMonth(Request $request)
     // Assuming you have a model named "Attendance" to retrieve the filtered data
     $attendances = Attendance::whereMonth('date', $selectMonth)->get();
 
-    return view('backend.employee.attendance')->with('attendances', $attendances);
+    return view('backend.employee.attendance')->with('attendances', $attendances)->with('selectMonth', $selectMonth);
 }
+
 
 
 public function filterYear(Request $request)
@@ -326,14 +327,37 @@ public function filterYear(Request $request)
     return view('backend.employee.attendance')->with('attendances', $attendances);
 }
 
-public function generatePDF()
+public function generatePDF(Request $request)
 {
-    $attendances = Attendance::all(); // Retrieve all data from the Attendance table
+    $url = $request->input('url');
+    $query = parse_url($url, PHP_URL_QUERY);
+    parse_str($query, $params);
+    $month = $params['month'] ?? null;
+    $year = $params['year'] ?? null;
 
-    $pdf = PDF::loadView('backend.employee.print_attendance', compact('attendances')); // Load the view and pass the data to it
+    $attendances = Attendance::query();
 
-    return $pdf-> inline ('attendance_record.pdf'); // Download the PDF file with the given name
+    if ($month) {
+        $attendances->whereMonth('date', $month);
+    }
+
+    if ($year) {
+        $attendances->whereYear('date', $year);
+    }
+
+    $attendances = $attendances->get();
+
+    $pdf = PDF::loadView('backend.employee.print_attendance', compact('attendances'));
+
+    return $pdf->inline('attendance_record.pdf');
 }
+
+
+
+
+
+
+
 
 
     public function EmployeeEdit ($usersID)

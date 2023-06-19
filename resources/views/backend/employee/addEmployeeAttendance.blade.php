@@ -31,8 +31,6 @@
               @enderror
             </div>
 
-            <!-- Additional form fields -->
-
             <div class="form-group">
               <label for="employeeName">Employee Name</label>
               <input type="text" name="employeeName" class="form-control @error('employeeName') is-invalid @enderror" id="employeeName" placeholder="Enter Employee Name">
@@ -45,7 +43,7 @@
 
             <div class="form-group">
               <label for="check_in">Check In</label>
-              <input type="time" name="check_in" class="form-control @error('check_in') is-invalid @enderror" id="check_in" placeholder="Enter Check In" required>
+              <input type="time" name="check_in" class="form-control @error('check_in') is-invalid @enderror" id="check_in" placeholder="Enter Check In">
               @error('check_in')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

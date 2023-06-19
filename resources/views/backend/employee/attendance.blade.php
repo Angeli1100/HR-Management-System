@@ -26,7 +26,6 @@
                             <a class="dropdown-item" href="{{ route('attendance.filter', ['month' => '10']) }}">October</a>
                             <a class="dropdown-item" href="{{ route('attendance.filter', ['month' => '11']) }}">November</a>
                             <a class="dropdown-item" href="{{ route('attendance.filter', ['month' => '12']) }}">December</a>
-                            <!-- Add the remaining month links -->
                         </div>
                     </div>
                     <div class="btn-group mr-2">
@@ -43,7 +42,6 @@
                             <a class="dropdown-item" href="{{ route('attendance.year', ['year' => '2028']) }}">2028</a>
                             <a class="dropdown-item" href="{{ route('attendance.year', ['year' => '2029']) }}">2029</a>
                             <a class="dropdown-item" href="{{ route('attendance.year', ['year' => '2030']) }}">2030</a>
-                            <!-- Add the remaining year links -->
                         </div>
                     </div>
                     <div class="btn-group">
@@ -62,7 +60,6 @@
                                 <th>Employee Name</th>
                                 <th>Check In</th>
                                 <th>Check Out</th>
-                                <th>Attendance Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,7 +71,6 @@
                                 <td>{{ $row->employeeName }}</td>
                                 <td>{{ $row->check_in }}</td>
                                 <td>{{ $row->check_out }}</td>
-                                <td>{{ $row->status }}</td>
                             </tr>
                             @endforeach
                         </tbody>

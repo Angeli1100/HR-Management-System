@@ -88,8 +88,6 @@ class EmployeeController extends Controller
         }
     }
     
-    
-        	
     public function EmployeeList(Request $request)
     {
         $list = DB::table('users')
@@ -101,7 +99,6 @@ class EmployeeController extends Controller
         return view('backend.employee.list_employee', compact('list'));
     }
     
-
 public function HealthStatus(Request $request)
     {
         $employees = Employee::with('user')->get(['id','usersID', 'employeeName', 'Vaccination', 'medical_employee', 'oku']);
@@ -124,7 +121,6 @@ public function HealthStatus(Request $request)
         // $user = User::where('id', $usersID) -> first ();
         return view('backend.employee.payroll_employee', compact('employees'));
     }
-
 
     public function EmployeeAdd(Request $request, $usersID)
     {
@@ -190,7 +186,6 @@ public function HealthStatus(Request $request)
         }
     }
     
-
 public function EmployeeShow(Request $request, $usersID)
 {
     $employee = Employee::with('user')->where('id', $usersID)->first();
@@ -198,15 +193,12 @@ public function EmployeeShow(Request $request, $usersID)
     return view('backend.employee.show_details', compact('employee', 'usersID'));
 }
 
-
-
 public function ManagerShow(Request $request, $usersID)
 {
     $employee = Employee::with('user')->where('usersID', $usersID)->first();
 
     return view('backend.employee.view_payroll', compact('employee', 'usersID'));
-}
-     
+}   
 
 public function attendance()
 {
@@ -214,7 +206,6 @@ public function attendance()
 
     return view('backend.employee.attendance', compact('attendances'));
 }
-
 public function generateLink()
 {
     $link = Attendance::generateLink();
@@ -232,26 +223,17 @@ public function generateLink()
     return redirect()->route('backend.employee.attendance', ['link' => $link]);
 }
 
-
 public function deactivateLink()
 {
-    $attendance = Attendance::where('status', 'active')->first();
+    Attendance::where('status', 'active')->update(['status' => 'deactivate']);
 
-    if ($attendance) {
-        // Set the status to "deactivate"
-        $attendance->status = 'deactivate';
-        $attendance->save();
-
-        // Flash a success message to the session
-        session()->flash('success', 'The link has been deactivated.');
-    }
+    // Flash a success message to the session
+    session()->flash('success', 'The active links have been deactivated.');
 
     // Redirect back to the previous page or any desired page
     return redirect()->back();
 }
-
-
-    
+ 
 public function viewLink($link)
 {
     return view('backend.employee.view_link', compact('link'));
@@ -262,8 +244,6 @@ public function pageLink()
     $link = Attendance::where('status', 'active')->value('link');
     return view('backend.employee.page_link', compact('link'));
 }
-
-
 
 public function checkIn(Request $request, $link)
 {
@@ -282,7 +262,6 @@ public function checkIn(Request $request, $link)
     session()->flash('success', 'Congratulations! You have successfully checked in.');
     return view('backend.employee.view_link', compact('link'));
 }
-
 
 public function checkOut(Request $request, $link)
 {
@@ -310,25 +289,29 @@ public function checkOut(Request $request, $link)
     return view('backend.employee.view_link', compact('link'));
 }
 
-
 public function filterMonth(Request $request)
 {
     $selectMonth = $request->input('month');
     // Assuming you have a model named "Attendance" to retrieve the filtered data
-    $attendances = Attendance::whereMonth('date', $selectMonth)->get();
+    $attendances = Attendance::whereNotNull('employeeName')
+                             ->whereMonth('date', $selectMonth)
+                             ->get();
 
-    return view('backend.employee.attendance')->with('attendances', $attendances)->with('selectMonth', $selectMonth);
+    return view('backend.employee.attendance')
+        ->with('attendances', $attendances)
+        ->with('selectMonth', $selectMonth);
 }
-
-
 
 public function filterYear(Request $request)
 {
     $selectYear = $request->input('year');
     // Assuming you have a model named "Attendance" to retrieve the filtered data
-    $attendances = Attendance::whereYear('date', $selectYear)->get();
+    $attendances = Attendance::whereNotNull('employeeName')->whereYear('date', $selectYear)
+                                ->get();
 
-    return view('backend.employee.attendance')->with('attendances', $attendances);
+    return view('backend.employee.attendance')
+    ->with('attendances', $attendances)
+    ->with('selectYear', $selectYear);
 }
 
 public function generatePDF(Request $request)
@@ -339,7 +322,7 @@ public function generatePDF(Request $request)
     $month = $params['month'] ?? null;
     $year = $params['year'] ?? null;
 
-    $attendances = Attendance::query();
+    $attendances = Attendance::whereNotNull('employeeName');
 
     if ($month) {
         $attendances->whereMonth('date', $month);
@@ -360,6 +343,11 @@ public function addEmployeeAttendance()
 {
     $link = Attendance::where('status', 'active')->first();
 
+    if (!$link) {
+        // No active link found, redirect back to the attendance dashboard or any desired page
+        return redirect()->route('backend.employee.attendance')->with('error', 'No active link available.');
+    }
+
     return view('backend.employee.addEmployeeAttendance', compact('link'));
 }
 
@@ -368,8 +356,6 @@ public function storeEmployeeAttendance(Request $request)
     $request->validate([
         'userID' => 'required',
         'employeeName' => 'required',
-        'check_in' => 'required',
-        'check_out' => 'required',
         'date' => 'required',
     ]);
 
@@ -478,8 +464,5 @@ public function EmployeeDelete ($id)
                     }
   
         }
-
-
-
 
 }

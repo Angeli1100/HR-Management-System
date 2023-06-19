@@ -70,3 +70,5 @@ Route::get('page_link', [EmployeeController::class, 'pageLink'])->name('backend.
 Route::get('/generate_report', [EmployeeController::class, 'generatePDF'])->name('generate_pdf');
 Route::get('/filterMonth', [EmployeeController::class, 'filterMonth'])->name('attendance.filter');
 Route::get('/filterYear', [EmployeeController::class, 'filterYear'])->name('attendance.year');
+Route::get('/addEmployeeAttendance', [EmployeeController::class, 'addEmployeeAttendance'])->name('backend.employee.addEmployeeAttendance');
+Route::post('/storeEmployeeAttendance', [EmployeeController::class, 'storeEmployeeAttendance'])->name('backend.employee.storeEmployeeAttendance');

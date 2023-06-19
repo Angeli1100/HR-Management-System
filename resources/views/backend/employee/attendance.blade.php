@@ -29,7 +29,7 @@
                             <!-- Add the remaining month links -->
                         </div>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group mr-2">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Filter by Year
                         </button>
@@ -46,6 +46,11 @@
                             <!-- Add the remaining year links -->
                         </div>
                     </div>
+                    <div class="btn-group">
+                    <a href="{{ route('backend.employee.addEmployeeAttendance') }}" class="btn btn-primary">                          
+                          Add Employee Attendance
+                        </a>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
@@ -57,6 +62,7 @@
                                 <th>Employee Name</th>
                                 <th>Check In</th>
                                 <th>Check Out</th>
+                                <th>Attendance Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,6 +74,7 @@
                                 <td>{{ $row->employeeName }}</td>
                                 <td>{{ $row->check_in }}</td>
                                 <td>{{ $row->check_out }}</td>
+                                <td>{{ $row->status }}</td>
                             </tr>
                             @endforeach
                         </tbody>

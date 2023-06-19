@@ -217,18 +217,21 @@ public function attendance()
 
 public function generateLink()
 {
-    $attendance = Attendance::generateLink();
+    $link = Attendance::generateLink();
 
-    // Set the status to "active"
+    // Create a new attendance record with the generated link
+    $attendance = new Attendance();
+    $attendance->link = $link;
     $attendance->status = 'active';
     $attendance->save();
 
     // Flash a success message to the session
     session()->flash('success', 'The link has been generated.');
 
-    // Pass the generated link to the view
-    return redirect()->route('backend.employee.attendance', ['link' => $attendance->link]);
+    // Redirect to the attendance page with the generated link
+    return redirect()->route('backend.employee.attendance', ['link' => $link]);
 }
+
 
 public function deactivateLink()
 {
@@ -246,6 +249,7 @@ public function deactivateLink()
     // Redirect back to the previous page or any desired page
     return redirect()->back();
 }
+
 
     
 public function viewLink($link)
@@ -352,12 +356,36 @@ public function generatePDF(Request $request)
     return $pdf->inline('attendance_record.pdf');
 }
 
+public function addEmployeeAttendance()
+{
+    $link = Attendance::where('status', 'active')->first();
 
+    return view('backend.employee.addEmployeeAttendance', compact('link'));
+}
 
+public function storeEmployeeAttendance(Request $request)
+{
+    $request->validate([
+        'userID' => 'required',
+        'employeeName' => 'required',
+        'check_in' => 'required',
+        'check_out' => 'required',
+        'date' => 'required',
+    ]);
 
+    $attendance = new Attendance();
+    $attendance->link = $request->link; // Retrieve the link from the form
+    $attendance->userID = $request->userID;
+    $attendance->employeeName = $request->employeeName;
+    $attendance->check_in = $request->check_in;
+    $attendance->check_out = $request->check_out;
+    $attendance->date = $request->date;
+    $attendance->save();
 
+    // Add any additional logic or redirection as needed
 
-
+    return redirect()->route('backend.employee.attendance')->with('success', 'Employee attendance stored successfully.');
+}
 
 
     public function EmployeeEdit ($usersID)

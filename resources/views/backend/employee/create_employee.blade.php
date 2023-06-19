@@ -3,9 +3,7 @@
 
 <div class="card-body">
     <div class="row">
-ss
       <div class="col-md-2">
-
       </div>
                      <div class="col-md-8">
             <!-- general form elements -->

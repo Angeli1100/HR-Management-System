@@ -109,7 +109,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{URL::to('/health_status')}}" class="nav-link">
+          <a href="{{URL::to('/leave_admin')}}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Leave
@@ -176,6 +176,14 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="{{URL::to('/leave_admin')}}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              Leave
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{{ route('backend.task.list_task', ['usersID' => Auth::user()->id]) }}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
@@ -207,6 +215,14 @@
             <i class="nav-icon fas fa-th"></i>
             <p>
               Daily Attendance
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+        <a href="{{URL::to('/leave_user')}}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              Leave
             </p>
           </a>
         </li>

@@ -74,12 +74,15 @@
     <div class="col-md-6">
         <!-- My Profile -->
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Other Information</h3>
-                <div class="col-md-12 text-right">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-</div>
+    <div class="card-header">
+        <h3 class="card-title">Other Information</h3>
+        <div class="col-md-12 text-right">
+            <form method="POST" action="{{ route('update_user', ['id' => $id]) }}">
+                @csrf
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
             <div class="card-body">
                 <div class="form-group row">
                     <div class="col-md-12">

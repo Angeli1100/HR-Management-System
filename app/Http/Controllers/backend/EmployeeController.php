@@ -11,6 +11,7 @@ use Illuminate\View\View;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Attendance;
+use App\Models\Leave;
 use Carbon\Carbon;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use PDF;
@@ -185,6 +186,49 @@ public function HealthStatus(Request $request)
             return redirect()->route('backend.employee.show_details')->with($notification);
         }
     }
+
+    public function updateEmployee(Request $request, $id)
+{
+    $employee = Employee::find($id);
+
+    if (!$employee) {
+        // Handle the case where the employee with the given ID is not found
+        return redirect()->back()->with('error', 'Employee not found!');
+    }
+
+    // Update the employee information based on the submitted form data
+    $employee->employeeName = $request->input('employeeName');
+    $employee->gender_employee = $request->input('gender_employee');
+    $employee->dob_employee = $request->input('dob_employee');
+    $employee->NRIC_employee = $request->input('NRIC_employee');
+    $employee->nationality_employee = $request->input('nationality_employee');
+    $employee->race_employee = $request->input('race_employee');
+    $employee->marital_employee = $request->input('marital_employee');
+    $employee->children_employee = $request->input('children_employee');
+    $employee->position_employee = $request->input('position_employee');
+    $employee->date = $request->input('date');
+    $employee->bank_name = $request->input('bank_name');
+    $employee->acc_number = $request->input('acc_number');
+    $employee->crime_employee = $request->input('crime_employee');
+    $employee->medical_employee = $request->input('medical_employee');
+    $employee->Vaccination = $request->input('Vaccination');
+    $employee->oku = $request->input('oku');
+    $employee->emergency_employee = $request->input('emergency_employee');
+    $employee->emergency_name = $request->input('emergency_name');
+    $employee->address = $request->input('address');
+    $employee->city = $request->input('city');
+    $employee->postcode = $request->input('postcode');
+    $employee->state = $request->input('state');
+    $employee->country = $request->input('country');
+    $employee->remarks = $request->input('remarks');
+    // Update other fields similarly
+
+    // Save the updated employee data to the database
+    $employee->save();
+
+    return redirect()->route('backend.employee.list_employee')->with('success', 'Employee information updated successfully!');
+}
+
     
 public function EmployeeShow(Request $request, $usersID)
 {
@@ -373,6 +417,31 @@ public function storeEmployeeAttendance(Request $request)
     return redirect()->route('backend.employee.attendance')->with('success', 'Employee attendance stored successfully.');
 }
 
+public function leaveAdmin()
+{
+    $table = Leave::all();
+    return view('backend.employee.leave_admin', ['leavetable' => $table]);
+}
+
+public function leaveUser()
+{
+    return view('backend.employee.leave_user');
+}
+
+public function EmployeeDelete_Leave ($id)
+    {
+    
+        $delete = DB::table('leavetable')->where('id', $id)->delete();
+        if ($delete)
+                            {    
+                            return redirect()->route('backend.employee.leave_admin')->with('success', 'The selected employee has been successfully deleted.');                                     
+                            }
+             else
+                  {
+                return redirect()->back('backend.employee.leave_admin')->with('error', 'There was an error while deleting the selected employee.');
+                  }
+
+      }
 
     public function EmployeeEdit ($usersID)
     {
@@ -414,7 +483,8 @@ public function storeEmployeeAttendance(Request $request)
         'messege'=>'error ',
         'alert-type'=>'error'
         );
-        return redirect()->route('backend.employee.show_details', [$usersID => 'usersID'])->with('error', 'There was an error while updating the details for this employee!');
+        return redirect()->route('backend.employee.show_details', [$usersID => 'usersID'])
+        ->with('error', 'There was an error while updating the details for this employee!');
     }
      
     }

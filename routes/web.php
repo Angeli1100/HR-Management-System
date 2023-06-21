@@ -5,16 +5,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\EmployeeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,7 +23,7 @@ Route::get('/delete_task/{id}', [App\Http\Controllers\backend\TaskController::cl
 
 Route::get('user_list', [App\Http\Controllers\backend\UsermanagementController::class,'UserList'])->name('user.index');
 Route::get('/edit_user/{id}', [App\Http\Controllers\backend\UsermanagementController::class,'UserEdit']);
-Route::post('/update_user/{id}', [App\Http\Controllers\backend\UsermanagementController::class,'UserUpdate']);
+Route::post('/update_user/{id}', [App\Http\Controllers\Backend\UsermanagementController::class, 'UserUpdate'])->name('update_user');
 Route::get('/delete_user/{id}', [App\Http\Controllers\backend\UsermanagementController::class,'UserDelete']);
 
 Route::get('register_employee', 'App\Http\Controllers\backend\EmployeeController@registerEmployee')->name('register_employee');
@@ -72,3 +62,9 @@ Route::get('/filterMonth', [EmployeeController::class, 'filterMonth'])->name('at
 Route::get('/filterYear', [EmployeeController::class, 'filterYear'])->name('attendance.year');
 Route::get('/addEmployeeAttendance', [EmployeeController::class, 'addEmployeeAttendance'])->name('backend.employee.addEmployeeAttendance');
 Route::post('/storeEmployeeAttendance', [EmployeeController::class, 'storeEmployeeAttendance'])->name('backend.employee.storeEmployeeAttendance');
+
+//Leave Application
+Route::get('leave_admin', [EmployeeController::class, 'leaveAdmin'])->name('backend.employee.leave_admin');
+Route::get('delete_employee/{id}', [EmployeeController::class,'EmployeeDelete_Leave']);
+Route::get('leave_user', [EmployeeController::class, 'leaveUser'])->name('backend.employee.leave_user');
+

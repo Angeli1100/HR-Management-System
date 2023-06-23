@@ -422,10 +422,24 @@ public function leaveAdmin()
     $table = Leave::all();
     return view('backend.employee.leave_admin', ['leavetable' => $table]);
 }
-
 public function leaveUser()
 {
-    return view('backend.employee.leave_user');
+    // Retrieve the leave data from the database
+    $leaveData = Leave::first();
+
+    // Extract the leave values
+    $annualLeaveData = $leaveData->annualLeaveData;
+    $emergencyLeaveData = $leaveData->emergencyLeaveData;
+    $hospitalityLeaveData = $leaveData->hospitalityLeaveData;
+    $paidLeaveData = $leaveData->paidLeaveData;
+
+    // Extract the leave quota values
+    $annualLeaveQuota = $leaveData->annual_qouta;
+    $emergencyLeaveQuota = $leaveData->emergency_qouta;
+    $hospitalityLeaveQuota = $leaveData->hospitality_qouta;
+    $paidLeaveQuota = $leaveData->paidLeave_qouta;
+
+    return view('backend.employee.leave_user', compact('annualLeaveData', 'emergencyLeaveData', 'hospitalityLeaveData', 'paidLeaveData', 'annualLeaveQuota', 'emergencyLeaveQuota', 'hospitalityLeaveQuota', 'paidLeaveQuota'));
 }
 
 public function EmployeeDelete_Leave ($id)

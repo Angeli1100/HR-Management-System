@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Leave extends Model
 {
     use HasFactory;
-    protected $table = 'leavetable'; // Add 'link' to the fillable attributes
 
+    protected $table = 'leavetable'; // Replace 'leavetable' with the actual table name in your database
+
+    protected $fillable = [
+        'usersID',
+        'employeeName',
+        'email',
+        'dateFrom',
+        'dateTo',
+        'annualLeaveData',
+        'emergencyLeaveData',
+        'hospitalityLeaveData',
+        'paidLeaveData',
+    ];
 }

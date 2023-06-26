@@ -76,7 +76,7 @@
 
     var options = {
       title: 'Leave Distribution',
-      colors: ['red', 'blue'],
+      colors: ['LightSalmon', 'DodgerBlue'],
       pieSliceText: 'value',
       legend: 'right'
     };

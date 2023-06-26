@@ -27,68 +27,71 @@
           </div>
         </div>
       </div>
+      <div class="card-footer">
+        <a href="{{ route('leave.apply') }}" class="btn btn-primary">Apply Leave</a>
+      </div>
     </div>
   </div>
 </div>
 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawCharts);
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawCharts);
 
-    function drawCharts() {
-      var annualLeaveData = parseInt("{{ $annualLeaveData }}");
-      var emergencyLeaveData = parseInt("{{ $emergencyLeaveData }}");
-      var hospitalityLeaveData = parseInt("{{ $hospitalityLeaveData }}");
-      var paidLeaveData = parseInt("{{ $paidLeaveData }}");
+  function drawCharts() {
+    var annualLeaveData = parseInt("{{ $annualLeaveData }}");
+    var emergencyLeaveData = parseInt("{{ $emergencyLeaveData }}");
+    var hospitalityLeaveData = parseInt("{{ $hospitalityLeaveData }}");
+    var paidLeaveData = parseInt("{{ $paidLeaveData }}");
 
-      var annualLeaveQuota = parseInt("{{ $annualLeaveQuota }}");
-      var emergencyLeaveQuota = parseInt("{{ $emergencyLeaveQuota }}");
-      var hospitalityLeaveQuota = parseInt("{{ $hospitalityLeaveQuota }}");
-      var paidLeaveQuota = parseInt("{{ $paidLeaveQuota }}");
+    var annualLeaveQuota = parseInt("{{ $annualLeaveQuota }}");
+    var emergencyLeaveQuota = parseInt("{{ $emergencyLeaveQuota }}");
+    var hospitalityLeaveQuota = parseInt("{{ $hospitalityLeaveQuota }}");
+    var paidLeaveQuota = parseInt("{{ $paidLeaveQuota }}");
 
-      var data1 = google.visualization.arrayToDataTable([
-        ['Label', 'Value'],
-        ['Annual Leave', annualLeaveData],
-        ['Quota', annualLeaveQuota]
-      ]);
+    var data1 = google.visualization.arrayToDataTable([
+      ['Label', 'Value'],
+      ['Annual Leave', annualLeaveData],
+      ['Quota', annualLeaveQuota]
+    ]);
 
-      var data2 = google.visualization.arrayToDataTable([
-        ['Label', 'Value'],
-        ['Emergency Leave', emergencyLeaveData],
-        ['Quota', emergencyLeaveQuota]
-      ]);
+    var data2 = google.visualization.arrayToDataTable([
+      ['Label', 'Value'],
+      ['Emergency Leave', emergencyLeaveData],
+      ['Quota', emergencyLeaveQuota]
+    ]);
 
-      var data3 = google.visualization.arrayToDataTable([
-        ['Label', 'Value'],
-        ['Hospitality Leave', hospitalityLeaveData],
-        ['Quota', hospitalityLeaveQuota]
-      ]);
+    var data3 = google.visualization.arrayToDataTable([
+      ['Label', 'Value'],
+      ['Hospitality Leave', hospitalityLeaveData],
+      ['Quota', hospitalityLeaveQuota]
+    ]);
 
-      var data4 = google.visualization.arrayToDataTable([
-        ['Label', 'Value'],
-        ['Paid Leave', paidLeaveData],
-        ['Quota', paidLeaveQuota]
-      ]);
+    var data4 = google.visualization.arrayToDataTable([
+      ['Label', 'Value'],
+      ['Paid Leave', paidLeaveData],
+      ['Quota', paidLeaveQuota]
+    ]);
 
-      var options = {
-        title: 'Leave Distribution',
-        colors: ['red', 'blue'],
-        pieSliceText: 'value',
-        legend: 'right'
-      };
+    var options = {
+      title: 'Leave Distribution',
+      colors: ['red', 'blue'],
+      pieSliceText: 'value',
+      legend: 'right'
+    };
 
-      var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
-      chart1.draw(data1, options);
+    var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
+    chart1.draw(data1, options);
 
-      var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
-      chart2.draw(data2, options);
+    var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+    chart2.draw(data2, options);
 
-      var chart3 = new google.visualization.PieChart(document.getElementById('piechart3'));
-      chart3.draw(data3, options);
+    var chart3 = new google.visualization.PieChart(document.getElementById('piechart3'));
+    chart3.draw(data3, options);
 
-      var chart4 = new google.visualization.PieChart(document.getElementById('piechart4'));
-      chart4.draw(data4, options);
-    }
-  </script>
+    var chart4 = new google.visualization.PieChart(document.getElementById('piechart4'));
+    chart4.draw(data4, options);
+  }
+</script>
 @endsection

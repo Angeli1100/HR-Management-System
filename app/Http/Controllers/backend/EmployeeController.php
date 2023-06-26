@@ -422,6 +422,7 @@ public function leaveAdmin()
     $table = Leave::all();
     return view('backend.employee.leave_admin', ['leavetable' => $table]);
 }
+
 public function leaveUser()
 {
     // Retrieve the leave data from the database
@@ -437,12 +438,83 @@ public function leaveUser()
     $annualLeaveQuota = $leaveData->annual_qouta;
     $emergencyLeaveQuota = $leaveData->emergency_qouta;
     $hospitalityLeaveQuota = $leaveData->hospitality_qouta;
-    $paidLeaveQuota = $leaveData->paidLeave_qouta;
+    $paidLeaveQuota = $leaveData->paidLeave_qouta; 
 
     return view('backend.employee.leave_user', compact('annualLeaveData', 'emergencyLeaveData', 'hospitalityLeaveData', 'paidLeaveData', 'annualLeaveQuota', 'emergencyLeaveQuota', 'hospitalityLeaveQuota', 'paidLeaveQuota'));
 }
 
-public function EmployeeDelete_Leave ($id)
+public function applyLeave()
+{
+    return view('backend.employee.apply_leave');
+}
+
+public function storeLeave(Request $request)
+{
+    // Validate the request data
+    $request->validate([
+        'leave_type' => 'required',
+        'duration' => 'required|numeric|min:1',
+    ]);
+
+    // Retrieve the employee data
+    $employee = Employee::where('usersID', auth()->user()->id)->first();
+
+    // Retrieve the leave data for the employee
+    $leave = Leave::where('employee_id', $employee->id)->first();
+
+    // Update the leave quota based on the leave type and duration
+    if ($request->leave_type === 'annual_leave') {
+        if ($leave->annual_qouta <= 0) {
+            return redirect()->back()->with('error', 'You have reached the maximum limit for annual leave.');
+        } elseif ($leave->annual_qouta >= $request->duration) {
+            $leave->annual_qouta -= $request->duration;
+            $leave->annualLeaveData += $request->duration;
+        } else {
+            return redirect()->back()->with('error', 'Insufficient annual leave quota.');
+        }
+    } elseif ($request->leave_type === 'emergency_leave') {
+        if ($leave->emergency_qouta <= 0) {
+            return redirect()->back()->with('error', 'You have reached the maximum limit for emergency leave.');
+        } elseif ($leave->emergency_qouta >= $request->duration) {
+            $leave->emergency_qouta -= $request->duration;
+            $leave->emergencyLeaveData += $request->duration;
+        } else {
+            return redirect()->back()->with('error', 'Insufficient emergency leave quota.');
+        }
+    } elseif ($request->leave_type === 'hospitality_leave') {
+        if ($leave->hospitality_qouta <= 0) {
+            return redirect()->back()->with('error', 'You have reached the maximum limit for hospitality leave.');
+        } elseif ($leave->hospitality_qouta >= $request->duration) {
+            $leave->hospitality_qouta -= $request->duration;
+            $leave->hospitalityLeaveData += $request->duration;
+        } else {
+            return redirect()->back()->with('error', 'Insufficient hospitality leave quota.');
+        }
+    } elseif ($request->leave_type === 'paid_leave') {
+        if ($leave->paidLeave_qouta <= 0) {
+            return redirect()->back()->with('error', 'You have reached the maximum limit for paid leave.');
+        } elseif ($leave->paidLeave_qouta >= $request->duration) {
+            $leave->paidLeave_qouta -= $request->duration;
+            $leave->paidLeave_qouta += $request->duration;
+        } else {
+            return redirect()->back()->with('error', 'Insufficient paid leave quota.');
+        }
+    }
+
+    // Save the updated leave data
+    $leave->save();
+
+    // You can add additional logic here, such as creating a leave application record
+
+    return redirect()->back()->with('success', 'Leave application submitted successfully.');
+}
+
+
+
+
+
+
+    public function EmployeeDelete_Leave ($id)
     {
     
         $delete = DB::table('leavetable')->where('id', $id)->delete();

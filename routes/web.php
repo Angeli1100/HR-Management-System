@@ -63,8 +63,9 @@ Route::get('/filterYear', [EmployeeController::class, 'filterYear'])->name('atte
 Route::get('/addEmployeeAttendance', [EmployeeController::class, 'addEmployeeAttendance'])->name('backend.employee.addEmployeeAttendance');
 Route::post('/storeEmployeeAttendance', [EmployeeController::class, 'storeEmployeeAttendance'])->name('backend.employee.storeEmployeeAttendance');
 
-//Leave Application
+// Leave Application
 Route::get('leave_admin', [EmployeeController::class, 'leaveAdmin'])->name('backend.employee.leave_admin');
-Route::get('delete_employee/{id}', [EmployeeController::class,'EmployeeDelete_Leave']);
+Route::get('delete_employee/{id}', [EmployeeController::class, 'EmployeeDelete_Leave']);
 Route::get('leave_user', [EmployeeController::class, 'leaveUser'])->name('backend.employee.leave_user');
-
+Route::get('apply_leave', [EmployeeController::class, 'applyLeave'])->name('leave.apply');
+Route::post('leave', [EmployeeController::class, 'storeLeave'])->name('leave.store');

@@ -12,6 +12,7 @@ class Employee extends Model
     protected $fillable = [
         'id', // Add 'id' to the fillable fields
         'usersID',
+        'employee_id',
         'employeeName',
         'dob_employee',
         'NRIC_employee',

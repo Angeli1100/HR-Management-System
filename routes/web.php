@@ -54,7 +54,7 @@ Route::post('/check-out/{link}', [EmployeeController::class, 'checkOut'])->name(
 
 Route::get('deactivate_link', [EmployeeController::class, 'deactivateLink'])->name('backend.employee.deactivate_link');
 Route::get('get_link', [EmployeeController::class, 'getActiveLink'])->name('active.link');
-Route::get('page_link', [EmployeeController::class, 'pageLink'])->name('backend.employee.page_link');
+Route::get('page_link/{link}', [EmployeeController::class, 'pageLink'])->name('backend.employee.page_link');
 
 // PDF Attendance Report
 Route::get('/generate_report', [EmployeeController::class, 'generatePDF'])->name('generate_pdf');
@@ -64,8 +64,11 @@ Route::get('/addEmployeeAttendance', [EmployeeController::class, 'addEmployeeAtt
 Route::post('/storeEmployeeAttendance', [EmployeeController::class, 'storeEmployeeAttendance'])->name('backend.employee.storeEmployeeAttendance');
 
 // Leave Application
+// Leave Application
 Route::get('leave_admin', [EmployeeController::class, 'leaveAdmin'])->name('backend.employee.leave_admin');
 Route::get('delete_employee/{id}', [EmployeeController::class, 'EmployeeDelete_Leave']);
 Route::get('leave_user', [EmployeeController::class, 'leaveUser'])->name('backend.employee.leave_user');
 Route::get('apply_leave', [EmployeeController::class, 'applyLeave'])->name('leave.apply');
 Route::post('leave', [EmployeeController::class, 'storeLeave'])->name('leave.store');
+Route::get('leave_setting', [EmployeeController::class, 'LeaveSetting'])->name('backend.employee.leave_setting');
+Route::post('leave_setting/update', [EmployeeController::class, 'updateLeaveQuotas'])->name('leave_setting.update');

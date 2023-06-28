@@ -230,11 +230,11 @@ public function HealthStatus(Request $request)
 }
 
     
-public function EmployeeShow(Request $request, $usersID)
+public function EmployeeShow(Request $request, $id)
 {
-    $employee = Employee::with('user')->where('id', $usersID)->first();
+    $employee = Employee::with('user')->where('id', $id)->first();
 
-    return view('backend.employee.show_details', compact('employee', 'usersID'));
+    return view('backend.employee.show_details', compact('employee', 'id'));
 }
 
 public function ManagerShow(Request $request, $usersID)
@@ -283,7 +283,7 @@ public function viewLink($link)
     return view('backend.employee.view_link', compact('link'));
 }
 
-public function pageLink()
+public function pageLink($link)
 {
     $link = Attendance::where('status', 'active')->value('link');
     return view('backend.employee.page_link', compact('link'));
@@ -304,7 +304,7 @@ public function checkIn(Request $request, $link)
     ]);
 
     session()->flash('success', 'Congratulations! You have successfully checked in.');
-    return view('backend.employee.view_link', compact('link'));
+    return view('backend.employee.page_link', compact('link'));
 }
 
 public function checkOut(Request $request, $link)
@@ -330,7 +330,7 @@ public function checkOut(Request $request, $link)
 
     session()->flash('success', 'Congratulations! You have successfully checked out.');
 
-    return view('backend.employee.view_link', compact('link'));
+    return view('backend.employee.page_link', compact('link'));
 }
 
 public function filterMonth(Request $request)
@@ -509,7 +509,50 @@ public function storeLeave(Request $request)
     return redirect()->back()->with('success', 'Leave application submitted successfully.');
 }
 
+public function LeaveSetting(Request $request)
+{
+    // Retrieve the employee data based on the selected user ID
+    $employee = Employee::where('id', $request->user_id)->first();
 
+    if (!$employee) {
+        return redirect()->back()->with('error', 'Employee not found.');
+    }
+
+    // Retrieve the leave data for the employee
+    $leave = Leave::where('employee_id', $employee->id)->first();
+
+    return view('backend.employee.leave_setting', compact('leave'));
+}
+
+public function updateLeaveQuotas(Request $request)
+{
+    // Validate the request data
+    $request->validate([
+        'employee_id' => 'required',
+        'annual_quota' => 'required|integer|min:0',
+        'emergency_quota' => 'required|integer|min:0',
+        'hospitality_quota' => 'required|integer|min:0',
+        'paidLeave_quota' => 'required|integer|min:0',
+    ]);
+
+    // Retrieve the leave data for the employee
+    $leave = Leave::where('employee_id', $request->employee_id)->first();
+
+    if (!$leave) {
+        return redirect()->back()->with('error', 'Leave data not found.');
+    }
+
+    // Update the leave quotas
+    $leave->annual_qouta = $request->annual_quota;
+    $leave->emergency_qouta = $request->emergency_quota;
+    $leave->hospitality_qouta = $request->hospitality_quota;
+    $leave->paidLeave_qouta = $request->paidLeave_quota;
+
+    // Save the updated leave data
+    $leave->save();
+
+    return redirect()->back()->with('success', 'Leave quotas updated successfully.');
+}
 
 
 

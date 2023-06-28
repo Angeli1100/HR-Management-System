@@ -21,5 +21,10 @@ class Leave extends Model
         'emergencyLeaveData',
         'hospitalityLeaveData',
         'paidLeaveData',
+        'annual_qouta',
+        'emergency_qouta',
+        'hospitality_qouta',
+        'paidLeave_qouta',
     ];
 }
+

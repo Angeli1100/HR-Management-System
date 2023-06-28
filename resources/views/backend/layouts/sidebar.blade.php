@@ -67,7 +67,8 @@
           </a>
         </li>
 
-        @if (Auth::user()->role == 1 )
+        <!-- Admin Dashboard -->
+        @if (Auth::user()->role == 1 ) 
         <li class="nav-item">
           <a href="{{ route('register_employee') }}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
@@ -108,14 +109,18 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{{URL::to('/leave_admin')}}" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-              Leave
-            </p>
-          </a>
-        </li>
+        <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="leaveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+            Leave
+        </p>
+    </a>
+         <div class="dropdown-menu" aria-labelledby="leaveDropdown">
+        <a class="dropdown-item" href="{{ URL::to('/leave_admin') }}">Leave Request</a>
+        <a class="dropdown-item" href="{{ URL::to('/leave_setting') }}">Leave Setting</a>
+      </div>
+      </li>
         <li class="nav-item">
           <a href="{{URL::to('/health_status')}}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
@@ -142,6 +147,8 @@
         </li>
         @endif
 
+
+        <!-- Manager Dashboard -->
         @if (Auth::user()->role == 2 )
         <li class="nav-item">
           <a href="{{ route('register_employee') }}" class="nav-link">
@@ -193,6 +200,7 @@
         </li>
         @endif
 
+        <!-- Employee Dashboard -->
         @if (Auth::user()->role == 3 )
         <li class="nav-item">
           <a href="{{ route('backend.task.list_task', ['usersID' => Auth::user()->id]) }}" class="nav-link">
@@ -211,7 +219,7 @@
           </a>
         </li>
         <li class="nav-item">
-        <a href="{{URL::to('/page_link')}}" class="nav-link">
+        <a href="{{URL::to('page_link/{link}')}}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Daily Attendance

@@ -17,17 +17,20 @@
                             <th>Name</th>
                             <th>Pay Date</th>
                             <th>Pay Period</th>
-                            <th>Status</th>
+                            <th>Gross</th>
+                            <th>Nett</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($employees as $row)
+                        @foreach($payroll as $row)
                         <tr>
-                            <td>{{ $row->id }}</td>
+                            <td>{{ $row->employee_id }}</td>
                             <td>{{ $row->employeeName }}</td>
-                            <td>{{ $row->employeeName }}</td>
-                            <td>{{ $row->employeeName }}</td>
-                            <td>{{ $row->employeeName }}</td>
+                            <td>{{ $row->pay_date }}</td>
+                            <td>{{ $row->pay_period }}</td>
+                            <td>{{ $row->gross }}</td>
+                            <td>{{ $row->nett }}</td>
+
                         </tr>
                         @endforeach
                     </tbody>

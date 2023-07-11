@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Employee;
+use App\Models\Payroll;
 use App\Models\User;
 use App\Models\Attendance;
 use App\Models\Leave;
 use Carbon\Carbon;
-use Barryvdh\Snappy\Facades\SnappyPdf;
 use PDF;
 
 
@@ -79,6 +79,7 @@ class EmployeeController extends Controller
                 'created_at' => now(),
                 'updated_at' => now()
             ];
+            
             DB::table('employee')->insert($employeeData); // Insert employee data
     
             return redirect()->route('backend.employee.list_employee')->with('success', 'New employee is successfully registered!');
@@ -107,8 +108,6 @@ class EmployeeController extends Controller
 public function HealthStatus(Request $request)
     {
         $employees = Employee::with('user')->get(['id','usersID', 'employeeName', 'Vaccination', 'medical_employee', 'oku']);
-        // $list = Employee::where('usersID', $usersID) -> get ();
-        // $user = User::where('id', $usersID) -> first ();
         return view('backend.employee.health_status', compact('employees'));
     }
 
@@ -121,10 +120,14 @@ public function HealthStatus(Request $request)
     
     public function PayrollStatus(Request $request)
     {
-        $employees = Employee::with('user')->get(['id','usersID', 'employeeName']);
-        // $list = Employee::where('usersID', $usersID) -> get ();
-        // $user = User::where('id', $usersID) -> first ();
-        return view('backend.employee.payroll_employee', compact('employees'));
+        $payroll = DB::table('employee')
+        ->join('payrolladmin', 'employee.id', '=', 'payrolladmin.employee_id')
+        ->select('payrolladmin.employee_id', 'employee.employeeName', 'payrolladmin.pay_date', 'payrolladmin.pay_period', 'payrolladmin.gross', 'payrolladmin.nett')
+        ->get();
+
+        return view('backend.employee.payroll_employee', compact('payroll'));
+
+
     }
 
     public function EmployeeAdd(Request $request, $usersID)

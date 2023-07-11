@@ -61,7 +61,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{URL::to('/payroll_manager')}}" class="nav-link">
+          <a href="{{URL::to('/payroll_employee')}}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Payroll Status

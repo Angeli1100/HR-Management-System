@@ -9,10 +9,9 @@
                 <h3 class="card-title">Profile Information</h3>
             </div>
             <div class="card-body">
-               
                     <div class="form-group row">
                         <div class="col-md-12 text-center">
-                            <img src="{{asset('storage/'.$employee->insert_img) }}" width="20%" height="auto">
+                            <img src="{{asset('storage/'.$employee->insert_img) }}" width="20%" height="auto" readonly>
                         </div>
                     </div>
 
@@ -192,8 +191,8 @@
                         </div>
     </div>
 </div>
-</div>
-</div>
-</div>
 
+</div>
+</div>
+</div>
 @endsection

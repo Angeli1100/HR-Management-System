@@ -29,6 +29,8 @@ class Employee extends Model
         'medical_employee',
         'Vaccination',
         'oku',
+        'contact_no',
+        'hp_no',
         'emergency_employee',
         'emergency_name',
         'address',

@@ -36,7 +36,7 @@ Route::get('payroll_manager', [App\Http\Controllers\backend\EmployeeController::
 Route::get('/add_employee/{id}',[App\Http\Controllers\backend\EmployeeController::class,'EmployeeAdd'])->name('backend.employee.create_employee');
 Route::post('/insert_employee/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeInsert']);
 Route::get('/show_details/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeShow'])->name('backend.employee.show_details');
-Route::get('/edit_employee/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeEdit']);
+Route::get('/edit_employee/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeEdit'])->name('edit_employee');
 Route::post('/update_employee/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeUpdate']);
 Route::get('delete_employee/{id}', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeDelete']);
 Route::get('delete_details/{usersID}', [App\Http\Controllers\backend\EmployeeController::class,'DeleteDetails']);
@@ -64,7 +64,6 @@ Route::get('/addEmployeeAttendance', [EmployeeController::class, 'addEmployeeAtt
 Route::post('/storeEmployeeAttendance', [EmployeeController::class, 'storeEmployeeAttendance'])->name('backend.employee.storeEmployeeAttendance');
 
 // Leave Application
-// Leave Application
 Route::get('leave_admin', [EmployeeController::class, 'leaveAdmin'])->name('backend.employee.leave_admin');
 Route::get('delete_employee/{id}', [EmployeeController::class, 'EmployeeDelete_Leave']);
 Route::get('leave_user', [EmployeeController::class, 'leaveUser'])->name('backend.employee.leave_user');
@@ -72,3 +71,10 @@ Route::get('apply_leave', [EmployeeController::class, 'applyLeave'])->name('leav
 Route::post('leave', [EmployeeController::class, 'storeLeave'])->name('leave.store');
 Route::get('leave_setting', [EmployeeController::class, 'LeaveSetting'])->name('backend.employee.leave_setting');
 Route::post('leave_setting/update', [EmployeeController::class, 'updateLeaveQuotas'])->name('leave_setting.update');
+Route::get('/get-employee-data', 'EmployeeController@getEmployeeData');
+
+//User Personal Detail
+Route::get('user_personalDetail/{id}', [EmployeeController::class, 'UserPersonalDetail'])->name('backend.employee.user_personalDetail');
+Route::get('editUser_personalDetail/{id}', [EmployeeController::class, 'EmployeeUpdate'])->name('edit_employee');
+Route::POST('/Save_Detail_Employee_Update/{id}', [EmployeeController::class, 'EmployeeSave'])->name('edit_employee_update');
+

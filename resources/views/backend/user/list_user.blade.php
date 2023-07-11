@@ -39,7 +39,7 @@ if($row->role==2)
 }
 if($row->role==3)
 {
-       echo 'Agent';
+       echo 'Employee';
 }
 
 @endphp 

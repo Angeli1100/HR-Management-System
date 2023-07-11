@@ -9,7 +9,8 @@
                 <h3 class="card-title">Profile Information</h3>
             </div>
             <div class="card-body">
-               
+                <form role="form" action="{{ URL::to('/insert_employee/'.$employee->id) }}" method="post" enctype="multipart/form-data">
+                    @csrf
                     <div class="form-group row">
                         <div class="col-md-12 text-center">
                             <img src="{{asset('storage/'.$employee->insert_img) }}" width="20%" height="auto">
@@ -73,15 +74,12 @@
     <div class="col-md-6">
         <!-- My Profile -->
         <div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Other Information</h3>
-        <div class="col-md-12 text-right">                 
-            <form method="GET" action="{{ URL::to('/editUser_personalDetail/'.$employee->id) }}">
-                @csrf
-                <button type="submit" class="btn btn-primary">Update</button>
-            </form>
-        </div>
-    </div>
+            <div class="card-header">
+                <h3 class="card-title">Other Information</h3>
+                <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+</div>
             <div class="card-body">
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -191,9 +189,6 @@
                         <input type="text" name="crime_employee" class="form-control" id="crime_employee" readonly value="{{ $employee->crime_employee }}">
                         </div>
     </div>
-</div>
-</div>
-</div>
 </div>
 
 @endsection

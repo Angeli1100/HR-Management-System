@@ -66,6 +66,8 @@ class EmployeeController extends Controller
                 'medical_employee' => null,
                 'Vaccination' => null,
                 'oku' => null,
+                'contact_no' => null,
+                'hp_no' => null,
                 'emergency_employee' => null,
                 'emergency_name' => null,
                 'address' => null,
@@ -93,12 +95,14 @@ class EmployeeController extends Controller
     {
         $list = DB::table('users')
             ->join('employee', 'users.id', '=', 'employee.usersID')
-            ->select('employee.id','employee.employeeName', 'users.name', 'users.email', 'users.role')
-            ->where('role','3')
+            ->select('employee.id', 'employee.employeeName', 'users.email', 'users.role')
+            ->where('role', '3')
             ->get();
     
         return view('backend.employee.list_employee', compact('list'));
     }
+    
+
     
 public function HealthStatus(Request $request)
     {
@@ -110,7 +114,7 @@ public function HealthStatus(Request $request)
 
     public function PayrollAdd(Request $request)
     {
-        $employees = Employee::with('user')->get(['id', 'employeeName']);
+        $employees = Employee::with('user')->get(['id', 'employeeName', 'position_employee']);
         return view('backend.employee.payroll_manager', compact('employees'));
     }
 
@@ -157,6 +161,8 @@ public function HealthStatus(Request $request)
                 'children_employee' => $request->children_employee,
                 'position_employee' => $request->position_employee ,
                 'date' => $request->date,
+                'contact_no' => $request -> contact_no,
+                'hp_no' => $request -> hp_no,
                 'bank_name' => $request->bank_name ,
                 'acc_number' => $request->acc_number ,
                 'crime_employee' => $request->crime_employee ,
@@ -189,6 +195,16 @@ public function HealthStatus(Request $request)
 
     public function updateEmployee(Request $request, $id)
 {
+    $validatedData = $request->validate([
+        'insert_img' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation rules for the image file
+    ]);
+
+    if ($request->hasFile('insert_img')) {
+        $imagePath = $request->file('insert_img')->store('employee_images', 'public');
+    } else {
+        $imagePath = null;
+    }
+
     $employee = Employee::find($id);
 
     if (!$employee) {
@@ -207,6 +223,8 @@ public function HealthStatus(Request $request)
     $employee->children_employee = $request->input('children_employee');
     $employee->position_employee = $request->input('position_employee');
     $employee->date = $request->input('date');
+    $employee-> contact_no = $request -> input('contact_no');
+    $employee-> hp_no = $request -> input('hp_no');
     $employee->bank_name = $request->input('bank_name');
     $employee->acc_number = $request->input('acc_number');
     $employee->crime_employee = $request->input('crime_employee');
@@ -221,12 +239,13 @@ public function HealthStatus(Request $request)
     $employee->state = $request->input('state');
     $employee->country = $request->input('country');
     $employee->remarks = $request->input('remarks');
+    $employee-> insert_img= $request->imagePath;
     // Update other fields similarly
 
     // Save the updated employee data to the database
     $employee->save();
 
-    return redirect()->route('backend.employee.list_employee')->with('success', 'Employee information updated successfully!');
+    return redirect()->route('backend.employee.show_details')->with('success', 'Employee information updated successfully!');
 }
 
     
@@ -511,17 +530,33 @@ public function storeLeave(Request $request)
 
 public function LeaveSetting(Request $request)
 {
-    // Retrieve the employee data based on the selected user ID
-    $employee = Employee::where('id', $request->user_id)->first();
+    // Retrieve the employee data
+    $employees = Employee::all();
 
-    if (!$employee) {
-        return redirect()->back()->with('error', 'Employee not found.');
+    return view('backend.employee.leave_setting', compact('employees'));
+}
+
+public function getEmployeeData(Request $request)
+{
+    $employeeId = $request->input('employee_id');
+
+    // Retrieve the employee data based on the selected employee ID
+    $employee = Employee::find($employeeId);
+
+    // Check if the leave data for the employee already exists
+    $leave = Leave::where('employee_id', $employeeId)->first();
+    if (!$leave) {
+        // Create new leave data for the employee
+        $leave = new Leave;
+        $leave->employee_id = $employeeId;
+        $leave->save();
     }
 
-    // Retrieve the leave data for the employee
-    $leave = Leave::where('employee_id', $employee->id)->first();
-
-    return view('backend.employee.leave_setting', compact('leave'));
+    // Return the employee data and leave data as JSON
+    return response()->json([
+        'employee' => $employee,
+        'leave' => $leave,
+    ]);
 }
 
 public function updateLeaveQuotas(Request $request)
@@ -529,30 +564,49 @@ public function updateLeaveQuotas(Request $request)
     // Validate the request data
     $request->validate([
         'employee_id' => 'required',
-        'annual_quota' => 'required|integer|min:0',
-        'emergency_quota' => 'required|integer|min:0',
-        'hospitality_quota' => 'required|integer|min:0',
-        'paidLeave_quota' => 'required|integer|min:0',
+        'annual_qouta' => 'required|integer|min:0',
+        'emergency_qouta' => 'required|integer|min:0',
+        'hospitality_qouta' => 'required|integer|min:0',
+        'paidLeave_qouta' => 'required|integer|min:0',
     ]);
 
-    // Retrieve the leave data for the employee
-    $leave = Leave::where('employee_id', $request->employee_id)->first();
+    // Retrieve the leave record based on the employee ID
+    $employees = Employee::with('user')->get(['usersID', 'employeeName', 'id']);
 
-    if (!$leave) {
-        return redirect()->back()->with('error', 'Leave data not found.');
+    // Check if the leave record exists
+    if (!$employees->isEmpty()) {
+        // Loop through each employee
+        foreach ($employees as $employee) {
+            // Create a new leave record
+            $leave = new Leave;
+            $leave->employee_id = $employee->id;
+            $leave->employeeName = $employee->employeeName;
+
+            // Retrieve the email from the associated user record
+            $email = $employee->user->email;
+            $leave->email = $email;
+
+            // Assign the values to the leave record properties
+            $leave->annual_qouta = $request->annual_qouta;
+            $leave->emergency_qouta = $request->emergency_qouta;
+            $leave->hospitality_qouta = $request->hospitality_qouta;
+            $leave->paidLeave_qouta = $request->paidLeave_qouta;
+
+            // Save the leave record
+            $leave->save();
+        }
     }
-
-    // Update the leave quotas
-    $leave->annual_qouta = $request->annual_quota;
-    $leave->emergency_qouta = $request->emergency_quota;
-    $leave->hospitality_qouta = $request->hospitality_quota;
-    $leave->paidLeave_qouta = $request->paidLeave_quota;
-
-    // Save the updated leave data
-    $leave->save();
 
     return redirect()->back()->with('success', 'Leave quotas updated successfully.');
 }
+
+public function UserPersonalDetail(Request $request, $id)
+{
+    $employee = []; 
+    $employee = Employee::where('usersID', auth()->user()->id)->first();
+    return view('backend.employee.user_personalDetail', compact('employee'));
+}
+
 
 
 
@@ -572,51 +626,76 @@ public function updateLeaveQuotas(Request $request)
 
       }
 
-    public function EmployeeEdit ($usersID)
-    {
-        $edit=DB::table('employee')
-            ->where('usersID',$usersID)
-            ->first();
-        return view('backend.employee.edit_employee', compact('edit'));     
+
+    public function EmployeeUpdate(Request $request, $id)
+{
+    $employee = Employee::with('user')->where('id', $id)->first();
+
+    return view('backend.employee.editUser_personalDetail', compact('employee', 'id'));
+}
+
+
+public function EmployeeSave (Request $request, $id)
+{
+
+    $employee = DB::table('employee')->where('id', $id)->first();
+    $id = $employee->id;
+
+    $validatedData = $request->validate([
+        'insert_img' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation rules for the image file
+    ]);
+
+    if ($request->hasFile('insert_img')) {
+        $imagePath = $request->file('insert_img')->store('employee_images', 'public');
+    } else {
+        $imagePath = null;
     }
 
-        public function EmployeeUpdate(Request $request,$usersID)
-    {
-        $list = Employee::where('usersID', $usersID)->get();
-        DB::table('employee')->where('usersID', $usersID)->first();        
-        $data = array();
-        $data['usersID'] = $request->usersID;
-        $data['employeeName'] = $request->employeeName;
-        $data['employeeCat'] = $request->employeeCat;
-        $data['registrationNum'] = $request->registrationNum;
-        $data['contact'] = $request->contact;
-        $data['address'] = $request->address;
-        $data['city'] = $request->city;
-        $data['postcode'] = $request->postcode;
-        $data['state'] = $request->state;
-        $data['country'] = $request->country;
-        $data['remarks'] = $request->remarks;
-        $update = DB::table('employee')->where('usersID', $usersID)->update($data);
 
-        if ($update) 
-    {
-        
-            $list = Employee::where('usersID', $usersID)->get(); 
-            return view('backend.employee.show_details', compact('list'))->with('success', 'Details for this employee has been successfully updated!');                     
-       
-        }   
-        else
-    {
-        $notification=array
-        (
-        'messege'=>'error ',
-        'alert-type'=>'error'
+    // Update the employee information based on the submitted form data
+    $data = array(
+    'employeeName' => $request->employeeName,
+    'gender_employee' => $request->gender_employee,
+    'dob_employee' => $request->dob_employee,
+    'NRIC_employee' => $request->NRIC_employee,
+   'nationality_employee'=> $request->nationality_employee,
+    'race_employee' => $request->race_employee,
+    'marital_employee' => $request->marital_employee,
+    'children_employee' => $request->children_employee,
+   'position_employee' => $request->position_employee,
+    'date' => $request->date,
+    'contact_no' => $request -> contact_no,
+    'hp_no' => $request -> hp_no,
+   'bank_name' => $request->bank_name,
+    'acc_number' => $request->acc_number,
+    'crime_employee' => $request->crime_employee,
+    'medical_employee' => $request->medical_employee,
+    'Vaccination' => $request->Vaccination,
+    'oku' => $request->oku,
+    'emergency_employee' => $request->emergency_employee,
+    'emergency_name' => $request->emergency_name,
+    'address' => $request->address,
+    'city' => $request->city,
+    'postcode' => $request->postcode,
+    'state' => $request->state,
+    'country' => $request->country,
+    'remarks' => $request->remarks,
+
+    );
+
+    $update = DB::table('employee')->where('id', $id)->update($data);
+
+    if ($update) {
+        return redirect()->route('backend.employee.show_details', ['id' => $employee->id])->with('success', ' Succesfully Updated!');
+    } else {
+        $notification = array(
+            'messege' => 'error ',
+            'alert-type' => 'error'
         );
-        return redirect()->route('backend.employee.show_details', [$usersID => 'usersID'])
-        ->with('error', 'There was an error while updating the details for this employee!');
+        return redirect()->route('backend.employee.show_details')->with($notification);
     }
-     
-    }
+}
+
 
 public function EmployeeDelete ($id)
     {

@@ -137,13 +137,13 @@ public function HealthStatus(Request $request)
     
     }
 
-    public function EmployeeAdd(Request $request, $usersID)
+    public function EmployeeAdd(Request $request, $id)
     {
-        $employee = Employee::with('user')->where('id', $usersID)->first();
+        $employee = Employee::with('user')->where('id', $id)->first();
     
-        return view('backend.employee.create_employee', compact('employee', 'usersID'));
+        return view('backend.employee.create_employee', compact('employee', 'id'));
     }
-
+    
     public function EmployeeInsert(Request $request, $usersID)
     {
         $validatedData = $request->validate([
@@ -249,7 +249,7 @@ public function HealthStatus(Request $request)
     $employee->state = $request->input('state');
     $employee->country = $request->input('country');
     $employee->remarks = $request->input('remarks');
-    $employee-> insert_img= $request->imagePath;
+    $employee->insert_img = $imagePath;
     // Update other fields similarly
 
     // Save the updated employee data to the database

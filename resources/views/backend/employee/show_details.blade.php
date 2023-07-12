@@ -12,7 +12,7 @@
                
                     <div class="form-group row">
                         <div class="col-md-12 text-center">
-                            <img src="{{asset('storage/'.$employee->insert_img) }}" width="20%" height="auto">
+                        <img id="preview-image" src="{{ asset('C:/xampp/htdocs/HR System Management/storage/app/public/employee_images'.$employee->insert_img) }}" width="20%" height="auto">
                         </div>
                     </div>
 

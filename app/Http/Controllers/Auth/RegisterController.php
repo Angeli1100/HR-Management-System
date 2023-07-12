@@ -10,45 +10,21 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -58,12 +34,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return 
-     */
     protected function create(array $data)
     {
         $insert = User::create([
@@ -71,16 +41,16 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    
+
         if ($insert) {
             $employee = Employee::where('usersID', $insert->id)->first(); // Retrieve employee data
-    
+
             if ($employee) {
                 $employeeName = $employee->employeeName; // Retrieve employee's name from the employee table
             } else {
                 $employeeName = $data['name']; // Use the provided name if the employee data is not found
             }
-    
+
             $employeeData = [
                 'usersID' => $insert->id,
                 'employeeName' => $employeeName,
@@ -109,22 +79,42 @@ class RegisterController extends Controller
                 'state' => null,
                 'country' => null,
                 'remarks' => null,
+                
                 'created_at' => now(),
                 'updated_at' => now()
-
                 // ... the rest of the employee data ...
             ];
-    
+
             DB::table('employee')->insert($employeeData);
-    
-            return redirect()->route('backend.employee.create_employee')->with('success', 'New employee is successfully registered!');
+
+            return $insert;
+        } else {
+            return null;
+        }
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        if ($user) {
+            $this->guard()->login($user);
+
+            return $this->registered($request, $user)
+                ?: redirect($this->redirectPath());
         } else {
             $notification = [
-                'messege' => 'Error registering new employee',
+                'message' => 'Error registering new employee',
                 'alert-type' => 'error'
             ];
             return redirect()->back()->with($notification);
         }
     }
+
+    protected function registered(Request $request, Authenticatable $user)
+    {
+        return redirect()->route('backend.employee.create_employee', ['id' => $user->id])->with('success', 'New employee is successfully registered!');
+    }
 }
-    

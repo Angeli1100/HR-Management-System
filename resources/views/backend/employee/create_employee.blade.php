@@ -297,11 +297,10 @@
                             <label for="remarks">Remarks</label>
                             <input type="text" name="remarks" class="form-control" id="remarks" placeholder="Remarks">
                         </div>
-
                         <div class="form-group">
-                            <label for="insert_img">Insert Image</label>
-                            <input type="file" name="insert_img" class="form-control-file" id="insert_img">
-                        </div>
+    <label for="insert_img">Insert Image</label>
+    <input type="file" name="insert_img" class="form-control-file" id="insert_img" onchange="readURL(this)">
+</div>
 
                         </div>
                         <!-- /.card-body -->
@@ -321,16 +320,16 @@
                         <!-- /.row -->
                         </div>
 
-<script type="text/javascript">
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#preview-image').attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
+                        <script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#preview-image').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-}
 </script>
 
 @endsection

@@ -264,7 +264,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="remarks">Remark</label>
-                            <input type="text" name="remarks" class="form-control" id="remarks" value="{{ $employee->remarks }}">
+                            <input type="text" name="remarks" class="form-control" id="remarks" readonly value="{{ $employee->remarks }}">
                         </div>
                     </div>
                 </div>

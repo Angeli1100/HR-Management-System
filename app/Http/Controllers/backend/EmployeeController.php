@@ -138,11 +138,17 @@ public function HealthStatus(Request $request)
     }
 
     public function EmployeeAdd(Request $request, $id)
-    {
-        $employee = Employee::with('user')->where('id', $id)->first();
-    
-        return view('backend.employee.create_employee', compact('employee', 'id'));
+{
+    $employee = Employee::with('user')->find($id);
+
+    if (!$employee) {
+        // Handle the case where the employee with the given ID is not found
+        return redirect()->back()->with('error', 'Employee not found!');
     }
+
+    return view('backend.employee.create_employee', compact('employee', 'id'));
+}
+
     
     public function EmployeeInsert(Request $request, $usersID)
     {

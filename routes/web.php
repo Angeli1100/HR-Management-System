@@ -29,7 +29,7 @@ Route::get('/delete_user/{id}', [App\Http\Controllers\backend\UsermanagementCont
 Route::get('register_employee', 'App\Http\Controllers\backend\EmployeeController@registerEmployee')->name('register_employee');
 Route::post('register_insert', 'App\Http\Controllers\backend\EmployeeController@registerInsert')->name('register_insert');
 Route::get('list_employee', [App\Http\Controllers\backend\EmployeeController::class,'EmployeeList'])->name('backend.employee.list_employee');
-Route::get('health_status', [App\Http\Controllers\backend\EmployeeController::class,'HealthStatus'])->name('backend.employee.health_status');
+Route::get('health_status', [App\Http\Controllers\backend\EmployeeController::class,'HealthStatus'])->name('health_status');
 Route::get('payroll_employee', [App\Http\Controllers\backend\EmployeeController::class,'PayrollStatus'])->name('backend.employee.payroll_employee');
 Route::get('payroll_manager', [App\Http\Controllers\backend\EmployeeController::class,'PayrollAdd'])->name('backend.employee.payroll_manager');
 
@@ -44,6 +44,7 @@ Route::get('delete_Health/{id}', [App\Http\Controllers\backend\EmployeeControlle
 
 // Payroll For Manager
 Route::get('/view_payroll/{id}', [App\Http\Controllers\backend\EmployeeController::class,'ManagerShow'])->name('backend.employee.view_payroll');
+Route::get('/payroll_employee_view/{employee_id}', [App\Http\Controllers\backend\EmployeeController::class,'PayrollView'])->name('payrollview');
 
 // Attendance Link
 Route::get('attendance', [EmployeeController::class, 'Attendance'])->name('backend.employee.attendance');
@@ -77,4 +78,7 @@ Route::get('/get-employee-data', 'EmployeeController@getEmployeeData');
 Route::get('user_personalDetail/{id}', [EmployeeController::class, 'UserPersonalDetail'])->name('backend.employee.user_personalDetail');
 Route::get('editUser_personalDetail/{id}', [EmployeeController::class, 'EmployeeUpdate'])->name('edit_employee');
 Route::POST('/Save_Detail_Employee_Update/{id}', [EmployeeController::class, 'EmployeeSave'])->name('edit_employee_update');
+
+//Attrition 
+Route::get('/attrition_status/{id}', [App\Http\Controllers\backend\EmployeeController::class,'AttritionStatus'])->name('attritionstatus');
 

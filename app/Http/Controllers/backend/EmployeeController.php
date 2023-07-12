@@ -107,8 +107,9 @@ class EmployeeController extends Controller
     
 public function HealthStatus(Request $request)
     {
-        $employees = Employee::with('user')->get(['id','usersID', 'employeeName', 'Vaccination', 'medical_employee', 'oku']);
+        $employees = Employee::with('user')->get(['id','usersID', 'employeeName', 'position_employee']);
         return view('backend.employee.health_status', compact('employees'));
+        
     }
 
     public function PayrollAdd(Request $request)
@@ -126,8 +127,14 @@ public function HealthStatus(Request $request)
         ->get();
 
         return view('backend.employee.payroll_employee', compact('payroll'));
+    }
 
+    public function PayrollView(Request $request, $employee_id)
+    {
+        $employee = Employee::with('user')->where('id', $employee_id)->first();
 
+        return view('backend.employee.payroll_employee_view', compact('employee', 'employee_id'));
+    
     }
 
     public function EmployeeAdd(Request $request, $usersID)
@@ -307,9 +314,14 @@ public function viewLink($link)
 
 public function pageLink($link)
 {
-    $link = Attendance::where('status', 'active')->value('link');
-    return view('backend.employee.page_link', compact('link'));
+    // Retrieve the attendance records for the authenticated user
+    $attendances = Attendance::where('link', $link)
+        ->where('userID', auth()->user()->id)
+        ->get();
+
+    return view('backend.employee.page_link', compact('link', 'attendances'));
 }
+
 
 public function checkIn(Request $request, $link)
 {
@@ -325,8 +337,8 @@ public function checkIn(Request $request, $link)
         'check_out' => null,
     ]);
 
-    session()->flash('success', 'Congratulations! You have successfully checked in.');
-    return view('backend.employee.page_link', compact('link'));
+    session()->flash('success', 'Good Job! You have successfully checked in. Have a nice day!');
+    return redirect()->back();
 }
 
 public function checkOut(Request $request, $link)
@@ -350,9 +362,9 @@ public function checkOut(Request $request, $link)
     $userId = auth()->user()->id;
     $name = auth()->user()->name;
 
-    session()->flash('success', 'Congratulations! You have successfully checked out.');
+    session()->flash('success', 'Good Job! You have successfully checked out. Rest Well!');
 
-    return view('backend.employee.page_link', compact('link'));
+    return redirect()->back();
 }
 
 public function filterMonth(Request $request)
@@ -610,6 +622,18 @@ public function UserPersonalDetail(Request $request, $id)
     return view('backend.employee.user_personalDetail', compact('employee'));
 }
 
+public function AttritionStatus(Request $request, $id)
+{
+    $employee = Employee::with('user')->find($id);
+    
+    if (!$employee) {
+        // Employee not found, handle the error scenario
+        // You can redirect or display an error message
+        return redirect()->back()->with('error', 'Employee not found.');
+    }
+    
+    return view('backend.employee.attrition_status', compact('employee'));
+}
 
 
 

@@ -13,7 +13,8 @@
 <thead>
 <tr>
 <th>Employee ID</th>
-<th>Name</th> 
+<th>Name</th>
+<th>Designation</th>
 <th>Status Employment</th>                
 </tr>
 </thead>
@@ -22,8 +23,9 @@
 <tr>
 <td>{{ $row->id }}</td>
 <td>{{ $row->employeeName }}</td>
+<td>{{ $row->position_employee }}</td>
 <td>
-<a href="{{ URL::to('/show_details/'.$row->id) }}" class="btn btn-sm btn-info" id="showDetails" class="middle-align">View Details</a>
+<a href="{{ URL::to('/attrition_status/'.$row->id) }}" class="btn btn-sm btn-info" id="showDetails" class="middle-align">View Details</a>
 <a href="{{ URL::to('delete_Health/'.$row->id) }}" class="btn btn-sm btn-danger" id="delete" class="middle-align">Delete</a>
 </td>
 </tr>

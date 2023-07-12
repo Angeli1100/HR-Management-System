@@ -19,6 +19,7 @@
                             <th>Pay Period</th>
                             <th>Gross</th>
                             <th>Nett</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,7 +31,9 @@
                             <td>{{ $row->pay_period }}</td>
                             <td>{{ $row->gross }}</td>
                             <td>{{ $row->nett }}</td>
-
+                            <td>
+                            <a href="{{ URL::to('/payroll_employee_view/'.$row->employee_id) }}" class="btn btn-primary">View</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

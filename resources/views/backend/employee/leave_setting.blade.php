@@ -1,8 +1,8 @@
 @extends('backend.layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col-md-6">
+<div class="row justify-content-center">
+        <div class="col-md-6">
         <!-- Profile Information -->
         <div class="card">
             <div class="card-header">
@@ -14,7 +14,6 @@
                     <div class="form-group">
                         <label for="employee">Employee:</label>
                         <select class="form-control" id="employee" name="employee_id">
-                            <!-- Populate the dropdown list with employee names -->
                             @foreach($employees as $employee)
                                 <option value="{{ $employee->id }}">{{ $employee->employeeName }}</option>
                             @endforeach

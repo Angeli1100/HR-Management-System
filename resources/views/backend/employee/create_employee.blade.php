@@ -294,13 +294,13 @@
 
 
                         <div class="form-group">
-                            <label for="remarks">Remarks</label>
+                            <label for="remarks">Employment Status</label>
                             <input type="text" name="remarks" class="form-control" id="remarks" placeholder="Remarks">
                         </div>
                         <div class="form-group">
-    <label for="insert_img">Insert Image</label>
-    <input type="file" name="insert_img" class="form-control-file" id="insert_img" onchange="readURL(this)">
-</div>
+                            <label for="insert_img">Insert Image</label>
+                            <input type="file" name="insert_img" class="form-control-file" id="insert_img" onchange="readURL(this)">
+                        </div>
 
                         </div>
                         <!-- /.card-body -->

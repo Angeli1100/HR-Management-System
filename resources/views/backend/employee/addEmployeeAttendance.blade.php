@@ -24,11 +24,7 @@
             <div class="form-group">
               <label for="userID">Employee User ID</label>
               <input type="text" name="userID" class="form-control @error('userID') is-invalid @enderror" id="userID" placeholder="Enter Employee User ID">
-              @error('userID')
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-              @enderror
+
             </div>
 
             <div class="form-group">

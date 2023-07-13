@@ -263,7 +263,7 @@
                             <input type="text" name="acc_number" class="form-control" id="acc_number" value="{{ $employee->acc_number }}">
                         </div>
                         <div class="col-md-12">
-                            <label for="remarks">Remark</label>
+                            <label for="remarks">Employment Status</label>
                             <input type="text" name="remarks" class="form-control" id="remarks" readonly value="{{ $employee->remarks }}">
                         </div>
                     </div>

@@ -25,7 +25,7 @@
 @foreach($leavetable as $row)
 <tr>
 <td>{{ $row->id }}</td>
-<td>{{ $row->usersID}}</td>
+<td>{{ $row->employee_id}}</td>
 <td>{{ $row->employeeName }}</td>
 <td>{{ $row->email }}</td>
 <td>{{ $row->dateFrom }}</td>

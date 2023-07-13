@@ -9,13 +9,11 @@
                 <h3 class="card-title">Profile Information</h3>
             </div>
             <div class="card-body">
-               
                     <div class="form-group row">
                         <div class="col-md-12 text-center">
-                        <img id="preview-image" src="{{ asset('C:/xampp/htdocs/HR System Management/storage/app/public/employee_images'.$employee->insert_img) }}" width="20%" height="auto">
+                        <img id="preview-image" src="{{ asset('employee_images/'.$employee->insert_img) }}" width="20%" height="auto">
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label for="id">Employee ID</label>
@@ -158,7 +156,7 @@
                         <input type="text" name="acc_number" class="form-control" id="acc_number" readonly value="{{ $employee->acc_number }}">
                     </div>
                     <div class="col-md-12">
-                        <label for="remarks">Remark</label>
+                        <label for="remarks">Employment Status</label>
                         <input type="text" name="remarks" class="form-control" id="remarks" readonly value="{{ $employee->remarks }}">
                     </div>
                 </div>

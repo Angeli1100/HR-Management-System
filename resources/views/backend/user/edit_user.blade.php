@@ -32,7 +32,7 @@ if($edit->role==2)
 }
 if($edit->role==3)
 {
-       echo 'Present Permission is : <b>Agent</b>';
+       echo 'Present Permission is : <b>Employee</b>';
 }
 
 @endphp
@@ -46,7 +46,7 @@ if($edit->role==3)
              <option  required> Please Select </option>          
 <option value="1" >Admin </option>
 <option value="2" >Manager </option>
-<option value="3" >Agent </option>
+<option value="3" >Employee </option>
 
 
 </select>

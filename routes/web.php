@@ -72,7 +72,9 @@ Route::get('apply_leave', [EmployeeController::class, 'applyLeave'])->name('leav
 Route::post('leave', [EmployeeController::class, 'storeLeave'])->name('leave.store');
 Route::get('leave_setting', [EmployeeController::class, 'LeaveSetting'])->name('backend.employee.leave_setting');
 Route::post('leave_setting/update', [EmployeeController::class, 'updateLeaveQuotas'])->name('leave_setting.update');
-Route::get('/get-employee-data', 'EmployeeController@getEmployeeData');
+Route::get('/get-employee-data', [EmployeeController::class, 'getEmployeeData']);
+Route::get('/leave_status', [EmployeeController::class, 'viewLeaveStatus'])->name('leave.status');
+
 
 //User Personal Detail
 Route::get('user_personalDetail/{id}', [EmployeeController::class, 'UserPersonalDetail'])->name('backend.employee.user_personalDetail');

@@ -29,6 +29,7 @@
       </div>
       <div class="card-footer">
         <a href="{{ route('leave.apply') }}" class="btn btn-primary">Apply Leave</a>
+        <a href="{{ route('leave.status') }}" class="btn btn-primary">View Status</a>
       </div>
     </div>
   </div>
@@ -45,33 +46,33 @@
     var hospitalityLeaveData = parseInt("{{ $hospitalityLeaveData }}");
     var paidLeaveData = parseInt("{{ $paidLeaveData }}");
 
-    var annualLeaveQuota = parseInt("{{ $annualLeaveQuota }}");
-    var emergencyLeaveQuota = parseInt("{{ $emergencyLeaveQuota }}");
-    var hospitalityLeaveQuota = parseInt("{{ $hospitalityLeaveQuota }}");
-    var paidLeaveQuota = parseInt("{{ $paidLeaveQuota }}");
+    var annual_qouta = parseInt("{{ $annual_qouta }}");
+    var emergency_qouta = parseInt("{{ $emergency_qouta }}");
+    var hospitality_qouta = parseInt("{{ $hospitality_qouta }}");
+    var paidLeave_qouta = parseInt("{{ $paidLeave_qouta }}");
 
     var data1 = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
       ['Annual Leave', annualLeaveData],
-      ['Quota', annualLeaveQuota]
+      ['Quota', annual_qouta]
     ]);
 
     var data2 = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
       ['Emergency Leave', emergencyLeaveData],
-      ['Quota', emergencyLeaveQuota]
+      ['Quota', emergency_qouta]
     ]);
 
     var data3 = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
       ['Hospitality Leave', hospitalityLeaveData],
-      ['Quota', hospitalityLeaveQuota]
+      ['Quota', hospitality_qouta]
     ]);
 
     var data4 = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
       ['Paid Leave', paidLeaveData],
-      ['Quota', paidLeaveQuota]
+      ['Quota', paidLeave_qouta]
     ]);
 
     var options = {

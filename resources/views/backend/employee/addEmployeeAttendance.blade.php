@@ -22,20 +22,20 @@
             </div>
 
             <div class="form-group">
-              <label for="userID">Employee User ID</label>
-              <input type="text" name="userID" class="form-control @error('userID') is-invalid @enderror" id="userID" placeholder="Enter Employee User ID">
-
-            </div>
-
-            <div class="form-group">
-              <label for="employeeName">Employee Name</label>
-              <input type="text" name="employeeName" class="form-control @error('employeeName') is-invalid @enderror" id="employeeName" placeholder="Enter Employee Name">
-              @error('employeeName')
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
+              <label for="userID">Employee Name</label>
+              <select name="userID" class="form-control @error('userID') is-invalid @enderror" id="userID">
+                  <option value="">Select Employee</option>
+                  @foreach ($users as $user)
+                      <option value="{{ $user->id }}">{{ $user->name }}</option>
+                  @endforeach
+              </select>
+              @error('userID')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
               @enderror
-            </div>
+          </div>
+
 
             <div class="form-group">
               <label for="check_in">Check In</label>

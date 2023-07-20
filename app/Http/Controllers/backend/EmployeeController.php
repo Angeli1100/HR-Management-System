@@ -59,6 +59,7 @@ class EmployeeController extends Controller
                 'marital_employee' => null,
                 'children_employee' => null,
                 'position_employee' => null,
+                'department' => null,
                 'date' => null,
                 'bank_name' => null,
                 'acc_number' => null,
@@ -176,6 +177,7 @@ public function HealthStatus(Request $request)
                 'marital_employee' => $request->marital_employee,
                 'children_employee' => $request->children_employee,
                 'position_employee' => $request->position_employee ,
+                'department' => $request->department ,
                 'date' => $request->date,
                 'contact_no' => $request -> contact_no,
                 'hp_no' => $request -> hp_no,
@@ -238,6 +240,7 @@ public function HealthStatus(Request $request)
     $employee->marital_employee = $request->input('marital_employee');
     $employee->children_employee = $request->input('children_employee');
     $employee->position_employee = $request->input('position_employee');
+    $employee->department = $request->input('department');
     $employee->date = $request->input('date');
     $employee-> contact_no = $request -> input('contact_no');
     $employee-> hp_no = $request -> input('hp_no');
@@ -423,6 +426,7 @@ public function generatePDF(Request $request)
     return $pdf->inline('attendance_record.pdf');
 }
 
+
 public function addEmployeeAttendance()
 {
     $link = Attendance::where('status', 'active')->first();
@@ -432,21 +436,23 @@ public function addEmployeeAttendance()
         return redirect()->route('backend.employee.attendance')->with('error', 'No active link available.');
     }
 
-    return view('backend.employee.addEmployeeAttendance', compact('link'));
+    $users = User::all(); // Retrieve all users
+
+    return view('backend.employee.addEmployeeAttendance', compact('link', 'users'));
 }
 
 public function storeEmployeeAttendance(Request $request)
 {
     $request->validate([
         'userID' => 'required',
-        'employeeName' => 'required',
         'date' => 'required',
     ]);
 
     $attendance = new Attendance();
     $attendance->link = $request->link; // Retrieve the link from the form
-    $attendance->userID = $request->userID;
-    $attendance->employeeName = $request->employeeName;
+    $attendance->userID = $request->userID; // Save the selected user ID as "userID"
+    $user = User::where('id', $request->userID)->first();
+    $attendance->employeeName = $user->name; // Save the selected user ID as "userID"
     $attendance->check_in = $request->check_in;
     $attendance->check_out = $request->check_out;
     $attendance->date = $request->date;
@@ -696,6 +702,7 @@ public function EmployeeSave (Request $request, $id)
     'marital_employee' => $request->marital_employee,
     'children_employee' => $request->children_employee,
    'position_employee' => $request->position_employee,
+   'department' => $request->department,
     'date' => $request->date,
     'contact_no' => $request -> contact_no,
     'hp_no' => $request -> hp_no,

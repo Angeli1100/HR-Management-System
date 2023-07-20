@@ -22,6 +22,7 @@ class Employee extends Model
         'marital_employee',
         'children_employee',
         'position_employee',
+        'department',
         'date',
         'bank_name',
         'acc_number',

@@ -11,7 +11,7 @@
             <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12 text-center">
-                        <img id="preview-image" src="{{ asset('employee_images/'.$employee->insert_img) }}" width="20%" height="auto">
+                        <img id="preview-image" src="{{ asset('storage/'.$employee->insert_img) }}" width="20%" height="auto">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -146,6 +146,10 @@
                     <div class="col-md-12">
                         <label for="date">Date of Commencement</label>
                         <input type="text" name="date" class="form-control" id="date" readonly value="{{ $employee->date }}">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="department">Department</label>
+                        <input type="text" name="department" class="form-control" id="department" readonly value="{{ $employee->department }}">
                     </div>
                     <div class="col-md-12">
                         <label for="bank_name">Bank Account Name</label>

@@ -57,13 +57,18 @@
                                     Male</option>
                             </select>
                         </div>
-
                         <div class="form-group">
-                            <label for="nationality_employee">Nationality</label>
-                            <input type="text" name="nationality_employee" class="form-control"
-                                id="nationality_employee" placeholder="Nationality">
-                        </div>
-
+                        <label for="nationality_employee">Nationality</label>
+                            <select name="nationality_employee" class="form-control" id="nationality_employee">
+                                <option value="">Select Nationality</option>
+                                <option value="Malaysia">Malaysia</option>
+                                <option value="United States">United States</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Canada">Thailand</option>
+                                <option value="Australia">Australia</option>
+                                    <option value="India">Indonesia</option>
+                                </select>
+                            </div>
                         <div class="form-group">
                             <label for="race_employee">Race</label>
                             <select name="race_employee" class="form-control" id="race_employee">
@@ -99,6 +104,13 @@
                             <input type="text" name="position_employee" class="form-control" id="position_employee"
                                 placeholder="Designation">
                         </div>
+
+                        <div class="form-group">
+                            <label for="department">Department</label>
+                            <input type="text" name="department" class="form-control" id="department"
+                                placeholder="Department">
+                        </div>
+
 
                         <div class="form-group">
                             <label for="date">Date of Commencement</label>
@@ -321,15 +333,15 @@
                         </div>
 
                         <script type="text/javascript">
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#preview-image').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
+                            function readURL(input) {
+                                if (input.files && input.files[0]) {
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        $('#preview-image').attr('src', e.target.result);
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                            }
+                        </script>
 
 @endsection

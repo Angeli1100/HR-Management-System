@@ -28,9 +28,9 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="{{ route('leave.apply') }}" class="btn btn-primary">Apply Leave</a>
-        <a href="{{ route('leave.status') }}" class="btn btn-primary">View Status</a>
-      </div>
+    <a href="{{ route('leave.apply') }}" class="btn btn-primary">Apply Leave</a>
+    <a href="{{ route('leave.status') }}" class="btn btn-primary">Status</a>
+</div>      </div>
     </div>
   </div>
 </div>

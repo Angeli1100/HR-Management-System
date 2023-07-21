@@ -21,6 +21,7 @@ class Leave extends Model
         'file',
         'select_leave',
         'status',
+        'applied_at',
         'annualLeaveData',
         'emergencyLeaveData',
         'hospitalityLeaveData',

@@ -31,8 +31,8 @@
 <td>{{ $row->dateFrom }}</td>
 <td>{{ $row->dateTo }}</td>
 <td>
-<a href="" class="btn btn-sm btn-info">View</a>
-<a href="{{ URL::to('delete_employee/'.$row->id) }}" class="btn btn-sm btn-danger" id="delete" class="middle-align">Delete</a>
+    <a href="{{ URL::to('leave_status/'.$row->employee_id) }}" class="btn btn-sm btn-info">View</a>
+    <a href="{{ URL::to('delete_employee/'.$row->id) }}" class="btn btn-sm btn-danger" id="delete" class="middle-align">Delete</a>
 </td>
 </tr>
 @endforeach

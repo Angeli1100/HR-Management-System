@@ -566,28 +566,31 @@ public function leaveUser(Request $request)
                 } else {
                     return redirect()->back()->with('error', 'Insufficient paid leave quota.');
                 }
-                break;
+                break;  
             default:
                 return redirect()->back()->with('error', 'Invalid leave type.');
         }
 
+
         $leave->select_leave = $request->select_leave;
-        
-        // Save the updated leave data
+        $leave->dateFrom = $request->dateFrom;
+        $leave->dateTo = $request->dateTo;
+
+                // Save the updated leave data
         $leave->save();
 
          // Update the status field to 'pending'
         $leave->status = 'pending';
         $leave->save();
 
-        // You can add additional logic here, such as creating a leave application record
-
-        return redirect()->back()->with('success', 'Leave application submitted successfully.');
-    }
+        // Redirect the user to the leave_status page
+        return redirect()->route('leave.status')->with('success', 'Leave application submitted successfully.');
+        }    
 
 
     public function viewLeaveStatus()
     {
+        
         // Retrieve the employee data
         $employee = Employee::where('usersID', auth()->user()->id)->first();
     
@@ -598,8 +601,7 @@ public function leaveUser(Request $request)
     }
     
     
-
-
+    
 public function LeaveSetting(Request $request)
 {
     // Retrieve the employee data

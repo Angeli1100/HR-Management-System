@@ -8,12 +8,6 @@
         <h3 class="card-title">Leave Application Status</h3>
       </div>
       <div class="card-body">
-        @if(session('success'))
-          <div class="alert alert-success">
-              {{ session('success') }}
-          </div>
-        @endif
-
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -35,7 +29,7 @@
                 <td>{{ $leavetable->status }}</td>
                 <td>
                   @if($leavetable->file)
-                    <a href="{{ asset('storage/' . $leavetable->file) }}" target="_blank">View Attachment</a>
+                    <a href="{{ asset('storage/' . $leavetable->file) }}" class="btn btn-primary">View Attachment</a>
                   @else
                     No Attachment
                   @endif
